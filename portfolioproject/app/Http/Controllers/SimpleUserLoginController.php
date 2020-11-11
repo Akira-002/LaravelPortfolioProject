@@ -19,7 +19,7 @@ class SimpleUserLoginController extends Controller
 		}
 
 		// false login
-		return redirect("/")->withErrors([
+		return redirect("/top")->withErrors([
 			"login" => "Incorrect ID or Pass lol"
 		]);
 	}
