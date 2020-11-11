@@ -26,3 +26,4 @@ Route::get('/sub', function () {
     // ->middleware("key")でMiddlewareが有効になる
 })->middleware("simple_user_auth");
 
+Route::post('/login', 'App\Http\Controllers\SimpleUserLoginController@login');
