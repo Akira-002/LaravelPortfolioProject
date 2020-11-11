@@ -27,3 +27,4 @@ Route::get('/sub', function () {
 })->middleware("simple_user_auth");
 
 Route::post('/login', 'App\Http\Controllers\SimpleUserLoginController@login');
+Route::post('/logout', 'App\Http\Controllers\SimpleUserLogoutController@logout');
