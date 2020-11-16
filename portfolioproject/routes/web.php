@@ -12,13 +12,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 });
 
-
-// nameをつけることでredirect()できる
 Route::get('/form', "App\Http\Controllers\SampleFormController@show")->name("form.show");
 Route::post('/form', "App\Http\Controllers\SampleFormController@post")->name("form.post");
 
@@ -27,3 +24,22 @@ Route::post('/form/confirm', "App\Http\Controllers\SampleFormController@send")->
 
 Route::get('/form/thanks', "App\Http\Controllers\SampleFormController@complete")->name("form.complete");
 
+Route::get('/home', function () {
+    return view('home');
+});
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+Route::get('/top', function () {
+    return view('top');
+});
+
+Route::get('/sub', function () {
+    return view('sub');
+    // ->middleware("key")でMiddlewareが有効になる
+})->middleware("simple_user_auth");
+
+Route::post('/login', 'App\Http\Controllers\SimpleUserLoginController@login');
+Route::post('/logout', 'App\Http\Controllers\SimpleUserLogoutController@logout');
