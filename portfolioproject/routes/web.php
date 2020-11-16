@@ -16,3 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+// nameをつけることでredirect()できる
+Route::get('/form', "App\Http\Controllers\SampleFormController@show")->name("form.show");
+Route::post('/form', "App\Http\Controllers\SampleFormController@post")->name("form.post");
+
+Route::get('/form/confirm', "App\Http\Controllers\SampleFormController@confirm")->name("form.confirm");
+Route::post('/form/confirm', "App\Http\Controllers\SampleFormController@send")->name("form.send");
+
+Route::get('/form/thanks', "App\Http\Controllers\SampleFormController@complete")->name("form.complete");
+

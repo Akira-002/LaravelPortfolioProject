@@ -45,7 +45,10 @@
                     </svg>
                 </div>
 
-                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
+                <a href="{{ url('/form') }}">Click here to contact</a>
+                <a href="{{ route('form.show') }}">Click here to contact</a>
+                <a href="{{ action('App\Http\Controllers\SampleFormController@show') }}">Click here to contact</a>
+                {{-- <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="p-6">
                             <div class="flex items-center">
@@ -99,9 +102,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
-                <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
+                {{-- <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
                     <div class="text-center text-sm text-gray-500 sm:text-left">
                         <div class="flex items-center">
                             <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor" class="-mt-px w-5 h-5 text-gray-400">
@@ -125,7 +128,7 @@
                     <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
                         Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </body>
