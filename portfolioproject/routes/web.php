@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Simpleposts;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,3 +44,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 // Route::post('/login', 'App\Http\Controllers\SimpleUserLoginController@login');
 // Route::post('/logout', 'App\Http\Controllers\SimpleUserLogoutController@logout');
+
+
+
+Route::get('post', Simpleposts::class);
