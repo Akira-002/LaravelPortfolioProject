@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Message from './Message';
+import AddMessage from './AddMessage';
 
 export default class Portfolioproject extends Component {
 
@@ -9,6 +10,8 @@ export default class Portfolioproject extends Component {
         this.state = {
             messages: []
         }
+
+        this.handleAddMessage = this.handleAddMessage.bind(this);
     }
 
     componentDidMount() {
@@ -26,6 +29,29 @@ export default class Portfolioproject extends Component {
             });
     }
 
+    handleAddMessage(message) {
+
+        /*Fetch API for post request */
+        fetch( 'api/messages/', {
+            method:'post',
+            /* headers are important*/
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+
+            body: JSON.stringify(message)
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then( data => {
+            this.setState((prevState)=> ({
+                messages: prevState.messages.concat(data),
+            }))
+        })
+        //update the state of messages
+    }
 
     render() {
         return(
@@ -37,6 +63,7 @@ export default class Portfolioproject extends Component {
                             <div className="card-body">Hello I'm an React component!</div>
                         </div>
                         <Message messages={this.state.messages} />
+                        <AddMessage onAdd={this.handleAddMessage} />
                     </div>
                 </div>
             </div>
