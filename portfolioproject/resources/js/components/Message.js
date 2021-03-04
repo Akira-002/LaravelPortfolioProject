@@ -13,7 +13,7 @@ const Message = ({messages}) => {
         <div className="MessagesListPane">
             {messages.map((message) =>
                 <div key={message.id}>
-                    <div>{message.title}</div>
+                    {/* <div>{message.title}</div> */}
                     <div>{message.description}</div>
                 </div>
             )}

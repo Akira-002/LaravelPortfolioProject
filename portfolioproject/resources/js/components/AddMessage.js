@@ -5,7 +5,7 @@ class AddMessage extends Component {
         super(props);
         this.state = {
             newMessage: {
-                title: '',
+                // title: '',
                 description: '',
             }
         }
@@ -34,10 +34,10 @@ class AddMessage extends Component {
             <div>
                 <div>Add New Message</div>
                 <form onSubmit={this.handleSubmit}>
-                    <label>
+                    {/* <label>
                         Title:
                         <input type="text" onChange={(e)=>this.handleInput('title',e)} />
-                    </label>
+                    </label> */}
                     <label>
                         Description:
                         <input type="text" onChange={(e)=>this.handleInput('description',e)} />

@@ -12,9 +12,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('messages', 'App\Http\Controllers\MessagesController@index');
 
-Route::get('messages/{message}', 'App\Http\Controllers\MessagesController@show');
+// Route::get('messages/{message}', 'App\Http\Controllers\MessagesController@show');
 
-Route::post('messages','App\Http\Controllers\MessagesController@store');
+Route::get('messages/user_messages', 'App\Http\Controllers\MessagesController@show');
+
+// Route::post('messages','App\Http\Controllers\MessagesController@store');
+
+// Route::post('messages','App\Http\Controllers\MessagesController@create');
 
 Route::put('messages/{message}','App\Http\Controllers\MessagesController@update');
 

@@ -40,4 +40,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function messages()
+    {
+        return $this->belongsToMany(
+            Message::class,
+            'user_messages',
+            'message_id',
+            'user_id'
+        );
+    }
+
 }
