@@ -37,7 +37,8 @@ class UsersMessagesTableSeeder extends Seeder
             foreach($users as $user) {
                 UserMessage::firstOrCreate([
                     'message_id' => $message->id,
-                    'user_id' => $user->id,
+                    'sender_id' => $user->id,
+                    'receiver_id' => $user->id,
                 ]);
             }
         }

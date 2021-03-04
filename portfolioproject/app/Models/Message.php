@@ -11,13 +11,26 @@ class Message extends Model
 
     protected $fillable = ['description'];
 
+    // // A message belongs to a sender
+    // public function sender()
+    // {
+    //     return $this->belongsTo(User::class, 'sender_id');
+    // }
+
+    // // A message also belongs to a receiver
+    // public function receiver()
+    // {
+    //     return $this->belongsTo(User::class, 'receiver_id');
+    // }
+
     public function users()
     {
         return $this->belongsToMany(
             User::class,
             'user_messages',
-            'user_id',
-            'message_id'
+            'message_id',
+            'sender_id',
+            'receiver_id'
         );
     }
 }
