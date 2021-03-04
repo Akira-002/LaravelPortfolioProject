@@ -30,17 +30,17 @@ class UsersMessagesTableSeeder extends Seeder
             ]);
         }
 
-        $users = User::paginate(3);
-        $messages = Message::paginate(3);
+        // $users = User::paginate(3);
+        $messages = Message::paginate(5);
         // Create user_message records
         foreach ($messages as $message) {
-            foreach($users as $user) {
+            // foreach($users as $user) {
                 UserMessage::firstOrCreate([
                     'message_id' => $message->id,
-                    'sender_id' => $user->id,
-                    'receiver_id' => $user->id,
+                    'sender_id' => $faker->numberBetween(1,5),
+                    'receiver_id' => $faker->numberBetween(6,10),
                 ]);
-            }
+            // }
         }
     }
 }
