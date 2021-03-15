@@ -20,49 +20,21 @@ class CreateUsersTable extends Migration
 
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            // $table->string('title');
+            $table->integer('sender_id')->unsigned();
+            $table->integer('receiver_id')->unsigned();
             $table->text('description');
             $table->timestamps();
+
+            // The cascade: `sender_id` and `receiver_id`field referenced the `id` field of `users` table:
+            $table->foreign('sender_id')->references('id')->on('users');
+            $table->foreign('receiver_id')->references('id')->on('users');
+
         });
-
-        // Schema::create('message_user', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->integer('message_id')->unsigned();
-        //     $table->integer('sender_id')->unsigned();
-        //     $table->integer('receiver_id')->unsigned();
-
-        //     // Without it, the cascade doesn't work.
-        //     $table->foreign('message_id')->references('id')->on('messages');
-
-        //     // `sender_id` field referenced the `id` field of `users` table:
-        //     // this time fot the `receiver_id` field:
-        //     $table->foreign('sender_id')->references('id')->on('users');
-        //     $table->foreign('receiver_id')->references('id')->on('users');
-        // });
-
-        Schema::create('messageables', function (Blueprint $table) {
-            // $table->id();
-            $table->integer('message_id')->unsigned();
-            // $table->integer('sender_id')->unsigned();
-            // $table->integer('receiver_id')->unsigned();
-
-            // Without it, the cascade doesn't work.
-            $table->foreign('message_id')->references('id')->on('messages');
-
-            // `sender_id` field referenced the `id` field of `users` table:
-            // this time fot the `receiver_id` field:
-            // $table->foreign('sender_id')->references('id')->on('users');
-            // $table->foreign('receiver_id')->references('id')->on('users');
-            // make messageable_id and messageable_type
-            $table->morphs('messageable');
-        });
-
     }
 
     public function down()
     {
         Schema::dropIfExists('users');
         Schema::dropIfExists('messages');
-        Schema::dropIfExists('messageables');
     }
 }

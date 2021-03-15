@@ -9,18 +9,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+// get
 Route::get('messages', 'App\Http\Controllers\MessagesController@index');
 
-// Route::get('messages/{message}', 'App\Http\Controllers\MessagesController@show');
+Route::get('messages/sendmessage', 'App\Http\Controllers\MessagesController@showSendMessage');
 
-// Route::get('messages/message_users', 'App\Http\Controllers\MessagesController@message');
-Route::get('messages/message_users', 'App\Http\Controllers\MessagesController@user');
+Route::get('messages/receivedmessage', 'App\Http\Controllers\MessagesController@showReceivedMessage');
 
-// Route::post('messages','App\Http\Controllers\MessagesController@store');
+// post
+Route::post('messages/sentmeessage','App\Http\Controllers\MessagesController@sentMessage');
 
-// Route::post('messages','App\Http\Controllers\MessagesController@create');
-
-Route::put('messages/{message}','App\Http\Controllers\MessagesController@update');
-
-Route::delete('messages/{message}', 'App\Http\Controllers\MessagesController@delete');
+// delete
+Route::delete('messages/deletemessage', 'App\Http\Controllers\MessagesController@deleteMessage');
