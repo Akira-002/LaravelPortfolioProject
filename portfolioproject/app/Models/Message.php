@@ -23,14 +23,58 @@ class Message extends Model
     //     return $this->belongsTo(User::class, 'receiver_id');
     // }
 
-    public function users()
+    // public function users()
+    // {
+    //     return $this->belongsToMany(
+    //         User::class,
+    //         // 'messages',
+    //         'message_user',
+    //         // 'message_id',
+    //         // 'sender_id',
+    //         // 'receiver_id'
+    //     )->withPivot('message_id', 'sender_id', 'receiver_id');
+    //     // );
+    // }
+
+    // public function users()
+    // {
+    //     return $this->morphMany(MessageUser::class,'message_user');
+    //     // ->using(MessageUser::class)
+    //     // ->withPivot(['message_id', 'sender_id', 'receiver_id']);
+    // }
+
+
+
+    public function sender()
     {
-        return $this->belongsToMany(
-            User::class,
-            'user_messages',
-            'message_id',
+        // return $this->morphMany(
+        //     MessageUser::class,
+        //     null,
+        //     null,
+        //     'sender_id',
+        //     'id'
+        // );
+
+        return $this->morphMany(
+            Messageable::class,
+            null,
+            // 'message_user',
             'sender_id',
-            'receiver_id'
+            'receiver_id',
+            'id',
+            'id',
+            false
+        );
+    }
+
+    public function receiver()
+    {
+        return $this->morphMany(
+            Messageable::class,
+            null,
+            null,
+            'receiver_id',
+            'id'
         );
     }
 }

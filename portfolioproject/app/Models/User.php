@@ -54,15 +54,58 @@ class User extends Authenticatable
     // }
 
 
-    public function messages()
+    // public function messages()
+    // {
+    //     return $this->belongsToMany(
+    //         Message::class,
+    //         'message_user',
+    //         // 'messages',
+    //         // 'message_id',
+    //         // 'sender_id',
+    //         // 'receiver_id'
+    //     )->withPivot('message_id', 'sender_id', 'receiver_id');
+    //     // );
+    // }
+    // public function messages()
+    // {
+    //     return $this->morphMany(MessageUser::class, 'message_user');
+    //     // ->using(MessageUser::class)
+    //     // ->withPivot(['message_id', 'sender_id', 'receiver_id']);
+    // }
+
+    public function sendmessage()
     {
-        return $this->belongsToMany(
-            Message::class,
-            'user_messages',
+        // return $this->morphMany(
+        //     MessageUser::class,  // Model to join
+        //     null,  // Prefix
+        //     null,  // Distinguished Column as type
+        //     'sender_id',  // Foreign Key
+        //     'id'  //Locall Key
+        // );
+
+        return $this->morphToMany(
+            Messageable::class,
+            'messageable',
+            'messageables',
+            'messageable_id',
             'message_id',
+            'id',
             'sender_id',
-            'receiver_id'
+            false
         );
     }
 
+    public function receivedmessage()
+    {
+        return $this->morphToMany(
+            Messageable::class,
+            'messageable',
+            'messageables',
+            'messageable_id',
+            'message_id',
+            'id',
+            'receiver_id',
+            false
+        );
+    }
 }

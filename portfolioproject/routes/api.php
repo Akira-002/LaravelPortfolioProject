@@ -14,7 +14,8 @@ Route::get('messages', 'App\Http\Controllers\MessagesController@index');
 
 // Route::get('messages/{message}', 'App\Http\Controllers\MessagesController@show');
 
-Route::get('messages/user_messages', 'App\Http\Controllers\MessagesController@show');
+// Route::get('messages/message_users', 'App\Http\Controllers\MessagesController@message');
+Route::get('messages/message_users', 'App\Http\Controllers\MessagesController@user');
 
 // Route::post('messages','App\Http\Controllers\MessagesController@store');
 
