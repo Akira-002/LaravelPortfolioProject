@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 use App\Models\Message;
 use App\Models\User;
 
@@ -16,6 +17,7 @@ class UsersTableSeeder extends Seeder
                 'name' => $faker->name(),
                 'email' => $faker->unique()->email,
                 'password' => $faker->password,
+                // 'remember_token' => Str::random(100),
             ]);
         }
 
