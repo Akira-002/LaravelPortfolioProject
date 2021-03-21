@@ -1,0 +1,174 @@
+
+@media screen and (min-width: 701px) {
+    .authPane {
+        width: 440px;
+        height: 400px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 100px;
+    }
+    .formPane {
+        width: 400px;
+        padding: 20px;
+    }
+    .signInOrUpSwitchText {
+        width: 400px;
+        padding-top: 5px;
+        padding-bottom: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .signInorUpForm {
+        // min-width: 300px;
+        // min-height: 80px;
+        padding-top: 10px;
+        padding-bottom: 20px;
+        padding-left: 30px;
+        padding-right: 30px;
+        box-shadow: 1px 3px 7px rgba(3, 101, 0, 0.509);
+        background: rgba(255, 255, 255, 0.763);
+        border-radius: 10px;
+        p {
+            color: rgba(3, 101, 0, 0.934);
+            margin-top: 5px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+        .form-group {
+            text-align: center;
+            margin-bottom: 10px;
+            .invalid-feedback {
+                height: 25px;
+            }
+        }
+    }
+}
+@media screen and (max-width: 700px) and (min-width: 451px) {
+    .authPane {
+        width: 410px;
+        height: 400px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 100px;
+    }
+    .formPane {
+        width: 390px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .signInOrUpSwitchText {
+        width: 390px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .invalid-feedback {
+        font-size: 14px;
+    }
+    .signInorUpForm {
+        // min-width: 300px;
+        // min-height: 80px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 30px;
+        padding-right: 30px;
+        box-shadow: 1px 3px 7px rgba(3, 101, 0, 0.509);
+        background: rgba(255, 255, 255, 0.763);
+        border-radius: 10px;
+        p {
+            color: rgba(3, 101, 0, 0.934);
+            margin-top: 5px;
+            margin-bottom: 5px;
+            font-weight: 600;
+            text-align: center;
+        }
+        .form-group {
+            text-align: center;
+            margin-bottom: 10px;
+            .invalid-feedback {
+                height: 25px;
+            }
+        }
+    }
+}
+@media screen and (max-width: 450px) {
+    .authPane {
+        width: 300px;
+        height: 400px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 100px;
+    }
+    .formPane {
+        width: 260px;
+        padding: 20px;
+    }
+    .signInOrUpSwitchText {
+        width: 260px;
+        padding-top: 5px;
+        padding-bottom: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .invalid-feedback {
+        font-size: 12px;
+    }
+    .signInorUpForm {
+        // min-width: 300px;
+        // min-height: 80px;
+        padding-top: 10px;
+        padding-bottom: 20px;
+        padding-left: 30px;
+        padding-right: 30px;
+        box-shadow: 1px 3px 7px rgba(3, 101, 0, 0.509);
+        background: rgba(255, 255, 255, 0.763);
+        border-radius: 10px;
+        p {
+            color: rgba(3, 101, 0, 0.934);
+            margin-top: 5px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+        .form-group {
+            text-align: center;
+            margin-bottom: 10px;
+            .invalid-feedback {
+                height: 25px;
+            }
+        }
+    }
+}
+
+.SignInButton {
+    color: rgba(12, 12, 12, 0.687) !important;
+    background: rgba(3, 101, 0, 0.509) !important;
+}
+
+.signInOrUpSwitchText {
+    .SwitchSignInAndUpButton {
+        color: rgba(152, 152, 152, 0.687) !important;
+        background: rgba(126, 32, 111, 0.708) !important;
+    }
+    .MuiButton-label {
+        font-size: 15px;
+        font-weight: 700;
+    }
+}
+
+.AuthSignOutButton {
+    color: rgba(152, 152, 152, 0.687) !important;
+    background: rgba(126, 32, 111, 0.708) !important;
+    .MuiButton-label {
+        font-size: 15px;
+        font-weight: 700;
+    }
+}
+

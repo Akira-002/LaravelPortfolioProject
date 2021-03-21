@@ -1,76 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import Message from './Message';
-import AddMessage from './AddMessage';
+// import thunk from 'redux-thunk';
+// import { Provider } from 'react-redux';
+// import { createStore, applyMiddleware, compose } from 'redux';
+// import rootReducer from './reducers/index';
+// import App from './containers/App';
+import AuthApp from './Auth/AuthApp';
+import '../../sass/app.scss';
 
-export default class Portfolioproject extends Component {
 
-    constructor() {
-        super();
-        this.state = {
-            messages: []
-        }
+// const store = createStore(
+//   rootReducer,
+//   applyMiddleware(thunk)
+  // compose(
+  //   applyMiddleware(thunk),
+  //     window.navigator.userAgent.includes('Chrome') ?
+  //     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() : compose,
+  // )
+// );
 
-        this.handleAddMessage = this.handleAddMessage.bind(this);
-    }
+// console.log(store.getState());
 
-    componentDidMount() {
-        fetch('api/messages', {
-            headers : {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        })
-            .then(response => {
-                return response.json();
-            })
-            .then(messages => {
-                this.setState({messages});
-            });
-    }
 
-    handleAddMessage(message) {
-
-        /*Fetch API for post request */
-        fetch( 'api/messages/', {
-            method:'post',
-            /* headers are important*/
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-
-            body: JSON.stringify(message)
-        })
-        .then(response => {
-            return response.json();
-        })
-        .then( data => {
-            this.setState((prevState)=> ({
-                messages: prevState.messages.concat(data),
-            }))
-        })
-        //update the state of messages
-    }
-
-    render() {
-        return(
-            <div className="container">
-                <div className="row justify-content-center">
-                    <div className="col-md-8">
-                        <div className="card">
-                            <div className="card-header">Welcome React World in Laravel</div>
-                            <div className="card-body">Hello I'm an React component!</div>
-                        </div>
-                        <Message messages={this.state.messages} />
-                        <AddMessage onAdd={this.handleAddMessage} />
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
-
-if (document.getElementById('portfolioproject')) {
-    ReactDOM.render(<Portfolioproject />, document.getElementById('portfolioproject'));
-}
+ReactDOM.render(
+  // <Provider store={store}>
+  <AuthApp/>, document.getElementById('portfolioproject')
+  //     <AuthApp/>
+  // </Provider>, document.getElementById('portfolioproject');
+);
