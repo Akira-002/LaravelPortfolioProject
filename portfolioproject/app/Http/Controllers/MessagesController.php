@@ -2,25 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Message;
 use App\Models\MessageUser;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MessagesController extends Controller
 {
-    public function index() {
-        $messages = Message::all();
-        $data = [];
-        foreach($messages as $message) {
-            $data[] = [
-                'message' => $message->description,
-                'sender' => $message->sender()->select('name')->get()->toArray(),
-                'receiver' => $message->receiver()->select('name')->get()->toArray()
-            ];
-        }
-        return $data;
-    }
+    // public function index() {
+    //     // $messages = Message::all();
+    //     // $data = [];
+    //     // foreach($messages as $message) {
+    //     //     $data[] = [
+    //     //         'message' => $message->description,
+    //     //         'sender' => $message->sender()->select('name')->get()->toArray(),
+    //     //         'receiver' => $message->receiver()->select('name')->get()->toArray()
+    //     //     ];
+    //     // }
+    //     // return $data;
+    //     $user = Auth::user();
+    //     // $data  = [
+    //     //     'name' => $user->name,
+    //     //     'email' => $user->email
+    //     // ];
+    //     return $user;
+    // }
 
     public function showSendMessage() {
         $users = User::has('sendmessage')->get();
@@ -46,21 +53,27 @@ class MessagesController extends Controller
         return $data;
     }
 
-    public function sentMessage(Request $request) {
-        $this->validate($request, [
-            'description' => 'required|unique:messages|max:100',
-            'sender_id' => 'integer | between:0,15',
-            'receiver_id' => 'integer | between:0,15'
-        ]);
 
-        $message = Message::create($request->all());
-        return response()->json($message, 201);
+    public function sentMessageVaridator(array $data)
+    {
+        return Validator::make($data, [
+            'description' => ['required', 'unique:messages', 'max:255'],
+            'sender_id' => ['required', 'integer', 'between:0,15'],
+            'receiver_id' => ['required', 'integer', 'between:0,15'],
+        ]);
     }
 
-    // public function update(Request $request, Message $message) {
-    //     $message->update($request->all());
-    //     return response()->json($message, 200);
-    // }
+    public function sentMessage(array $data)
+    {
+        $user = Auth::user()->sendmessage();
+        $sender_id = Auth::user()->id;
+        $message = Message::create([
+            'description' => $data['description'],
+            'sender_id' => $sender_id,
+            'receiver_id' => $data['receiver_id']
+        ]);
+        return response()->json($user->$message, 201);
+    }
 
     public function deleteMessage(Request $request) {
         $this->validate($request, [

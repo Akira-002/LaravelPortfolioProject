@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import ErrorsAlert from './ErrorsAlert';
 
 //material-ui objects
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+// import TextField from '@material-ui/core/TextField';
+// import Button from '@material-ui/core/Button';
 
 
 class RegisterPage extends Component {

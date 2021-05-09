@@ -5,13 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Message;
 
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-// Route::middleware('auth:api')->group(function() {
-//     Route::get('user/{userId}/detail', 'App\Http\Controllers\UserController@show');
-// });
-
 Route::middleware('json.response')->group(function () {
     // public routes
     //->login - POST
@@ -23,7 +16,7 @@ Route::middleware('json.response')->group(function () {
 // private routes
 Route::middleware(['auth:api','json.response'])->group(function () {
   //->user - GET
-  Route::get('/user','App\Http\Controllers\Api\UserController@show')->name('user.show');
+  Route::get('/user', 'App\Http\Controllers\Api\UserController@show')->name('user.show');
   //->logout - GET
   Route::get('/logout', 'App\Http\Controllers\Api\AuthController@logout')->name('logout');
 });
@@ -40,7 +33,7 @@ Route::get('messages/sendmessage', 'App\Http\Controllers\MessagesController@show
 Route::get('messages/receivedmessage', 'App\Http\Controllers\MessagesController@showReceivedMessage');
 
 // post
-Route::post('messages/sentmeessage','App\Http\Controllers\MessagesController@sentMessage');
+Route::post('messages/sentmessage','App\Http\Controllers\MessagesController@sentMessage');
 
 // delete
 Route::delete('messages/deletemessage', 'App\Http\Controllers\MessagesController@deleteMessage');
