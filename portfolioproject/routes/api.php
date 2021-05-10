@@ -16,7 +16,8 @@ Route::middleware('json.response')->group(function () {
 // private routes
 Route::middleware(['auth:api','json.response'])->group(function () {
   //->user - GET
-  Route::get('/user', 'App\Http\Controllers\Api\UserController@show')->name('user.show');
+  Route::get('/me', 'App\Http\Controllers\Api\UserController@showindex')->name('user.show');
+  Route::post('/other', 'App\Http\Controllers\Api\UserController@showuser')->name('user.show');
   //->logout - GET
   Route::get('/logout', 'App\Http\Controllers\Api\AuthController@logout')->name('logout');
 });
@@ -27,13 +28,13 @@ Route::middleware(['auth:api','json.response'])->group(function () {
 // Route::post('login', 'App\Http\Controllers\Auth\AuthController@login');
 
 
-// get
+// get  --For checking during development
 Route::get('messages', 'App\Http\Controllers\MessagesController@index');
 Route::get('messages/sendmessage', 'App\Http\Controllers\MessagesController@showSendMessage');
 Route::get('messages/receivedmessage', 'App\Http\Controllers\MessagesController@showReceivedMessage');
 
-// post
+// post  --For checking during development
 Route::post('messages/sentmessage','App\Http\Controllers\MessagesController@sentMessage');
 
-// delete
+// delete  --For checking during development
 Route::delete('messages/deletemessage', 'App\Http\Controllers\MessagesController@deleteMessage');

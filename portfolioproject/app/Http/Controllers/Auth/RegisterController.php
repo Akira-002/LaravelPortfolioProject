@@ -19,21 +19,6 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    // protected function create(array $data)
-    // {
-    //     $data->validate([
-    //         'name' => ['required', 'string', 'max:255'],
-    //         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-    //         'password' => ['required', 'string', 'min:6', 'confirmed'],
-    //     ]);
-    //     $user = User::create([
-    //         'name' => $data['name'],
-    //         'email' => $data['email'],
-    //         'password' => Hash::make($data['password']),
-    //     ]);
-    //     return $user;
-    // }
-
     protected function validator(array $data)
     {
         return Validator::make($data, [

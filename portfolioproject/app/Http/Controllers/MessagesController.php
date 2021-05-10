@@ -10,24 +10,18 @@ use Illuminate\Support\Facades\Auth;
 
 class MessagesController extends Controller
 {
-    // public function index() {
-    //     // $messages = Message::all();
-    //     // $data = [];
-    //     // foreach($messages as $message) {
-    //     //     $data[] = [
-    //     //         'message' => $message->description,
-    //     //         'sender' => $message->sender()->select('name')->get()->toArray(),
-    //     //         'receiver' => $message->receiver()->select('name')->get()->toArray()
-    //     //     ];
-    //     // }
-    //     // return $data;
-    //     $user = Auth::user();
-    //     // $data  = [
-    //     //     'name' => $user->name,
-    //     //     'email' => $user->email
-    //     // ];
-    //     return $user;
-    // }
+    public function index() {
+        $messages = Message::all();
+        $data = [];
+        foreach($messages as $message) {
+            $data[] = [
+                'message' => $message->description,
+                'sender' => $message->sender()->select('name')->get()->toArray(),
+                'receiver' => $message->receiver()->select('name')->get()->toArray()
+            ];
+        }
+        return $data;
+    }
 
     public function showSendMessage() {
         $users = User::has('sendmessage')->get();
@@ -54,26 +48,26 @@ class MessagesController extends Controller
     }
 
 
-    public function sentMessageVaridator(array $data)
-    {
-        return Validator::make($data, [
-            'description' => ['required', 'unique:messages', 'max:255'],
-            'sender_id' => ['required', 'integer', 'between:0,15'],
-            'receiver_id' => ['required', 'integer', 'between:0,15'],
-        ]);
-    }
+    // public function sentMessageVaridator(array $data)
+    // {
+    //     return Validator::make($data, [
+    //         'description' => ['required', 'unique:messages', 'max:255'],
+    //         'sender_id' => ['required', 'integer', 'between:0,15'],
+    //         'receiver_id' => ['required', 'integer', 'between:0,15'],
+    //     ]);
+    // }
 
-    public function sentMessage(array $data)
-    {
-        $user = Auth::user()->sendmessage();
-        $sender_id = Auth::user()->id;
-        $message = Message::create([
-            'description' => $data['description'],
-            'sender_id' => $sender_id,
-            'receiver_id' => $data['receiver_id']
-        ]);
-        return response()->json($user->$message, 201);
-    }
+    // public function sentMessage(array $data)
+    // {
+    //     $user = Auth::user()->sendmessage();
+    //     $sender_id = Auth::user()->id;
+    //     $message = Message::create([
+    //         'description' => $data['description'],
+    //         'sender_id' => $sender_id,
+    //         'receiver_id' => $data['receiver_id']
+    //     ]);
+    //     return response()->json($user->$message, 201);
+    // }
 
     public function deleteMessage(Request $request) {
         $this->validate($request, [
@@ -85,17 +79,4 @@ class MessagesController extends Controller
         $message->delete();
         return response()->json(null, 204);
     }
-
-//     public function create(Request $request)
-//     {
-//         $message = new Message;
-//         $message->description = 'Thanks for everything';
-
-//         $message->save();
-
-//         $user = User::find([1, 2]);
-//         $message->users()->attach($user);
-
-//         return 'Success';
-//     }
 }
