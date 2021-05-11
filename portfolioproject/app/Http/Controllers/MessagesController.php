@@ -57,18 +57,6 @@ class MessagesController extends Controller
     //     ]);
     // }
 
-    // public function sentMessage(array $data)
-    // {
-    //     $user = Auth::user()->sendmessage();
-    //     $sender_id = Auth::user()->id;
-    //     $message = Message::create([
-    //         'description' => $data['description'],
-    //         'sender_id' => $sender_id,
-    //         'receiver_id' => $data['receiver_id']
-    //     ]);
-    //     return response()->json($user->$message, 201);
-    // }
-
     public function deleteMessage(Request $request) {
         $this->validate($request, [
             'id' => 'integer',

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Models\Message;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,4 +28,17 @@ class UserController extends Controller
         }
         return response()->json(['message' => 'Beyond the Universe but I can not find!'], 404);
     }
+
+    public function sentMessage(Request $request)
+    {
+        $sender_id = Auth::id();
+        $user = User::find($sender_id)->sendmessage();
+        $sendmessage = $user->create([
+            'description' => $request->description,
+            'sender_id' => $sender_id,
+            'receiver_id' => $request->receiver_id
+        ]);
+        return response()->json($sendmessage, 201);
+    }
+
 }

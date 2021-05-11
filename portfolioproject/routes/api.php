@@ -15,9 +15,12 @@ Route::middleware('json.response')->group(function () {
 
 // private routes
 Route::middleware(['auth:api','json.response'])->group(function () {
-  //->user - GET
+  //->user - exhibit me
   Route::get('/me', 'App\Http\Controllers\Api\UserController@showindex')->name('user.show');
+  //->user - exhibit others
   Route::post('/other', 'App\Http\Controllers\Api\UserController@showuser')->name('user.show');
+  //->user - sentMessage
+  Route::post('/sentmessage', 'App\Http\Controllers\Api\UserController@sentMessage');
   //->logout - GET
   Route::get('/logout', 'App\Http\Controllers\Api\AuthController@logout')->name('logout');
 });
