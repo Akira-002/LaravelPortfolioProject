@@ -15,10 +15,16 @@ Route::middleware('json.response')->group(function () {
 
 // private routes
 Route::middleware(['auth:api','json.response'])->group(function () {
+  //->user - exhibit all user
+  Route::get('/index', 'App\Http\Controllers\Api\UserController@index')->name('user.show');
   //->user - exhibit me
   Route::get('/me', 'App\Http\Controllers\Api\UserController@showindex')->name('user.show');
   //->user - exhibit others
   Route::post('/other', 'App\Http\Controllers\Api\UserController@showuser')->name('user.show');
+  //->user - exhibit all send message
+  Route::get('/sendmessages', 'App\Http\Controllers\Api\UserController@showSendMessage');
+  //->user - exhibit all received message
+  Route::get('/receivedmessages', 'App\Http\Controllers\Api\UserController@showReceivedMessage');
   //->user - sentMessage
   Route::post('/sentmessage', 'App\Http\Controllers\Api\UserController@sentMessage');
   //->logout - GET
@@ -33,8 +39,7 @@ Route::middleware(['auth:api','json.response'])->group(function () {
 
 // get  --For checking during development
 Route::get('messages', 'App\Http\Controllers\MessagesController@index');
-Route::get('messages/sendmessage', 'App\Http\Controllers\MessagesController@showSendMessage');
-Route::get('messages/receivedmessage', 'App\Http\Controllers\MessagesController@showReceivedMessage');
+// Route::get('messages/receivedmessage', 'App\Http\Controllers\MessagesController@showReceivedMessage');
 
 // post  --For checking during development
 Route::post('messages/sentmessage','App\Http\Controllers\MessagesController@sentMessage');

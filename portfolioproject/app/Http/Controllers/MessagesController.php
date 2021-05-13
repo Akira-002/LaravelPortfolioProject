@@ -23,31 +23,6 @@ class MessagesController extends Controller
         return $data;
     }
 
-    public function showSendMessage() {
-        $users = User::has('sendmessage')->get();
-        $data = [];
-        foreach($users as $user) {
-            $data[] = [
-                'name' => $user->name,
-                'sendmessage' => $user->sendmessage()->select('id', 'description')->get()->toArray()
-            ];
-        }
-        return $data;
-    }
-
-    public function showReceivedMessage() {
-        $users = User::has('receivedmessage')->get();
-        $data = [];
-        foreach($users as $user) {
-            $data[] = [
-                'name' => $user->name,
-                'receivedmessage' => $user->receivedmessage()->select('description')->get()->toArray()
-            ];
-        }
-        return $data;
-    }
-
-
     // public function sentMessageVaridator(array $data)
     // {
     //     return Validator::make($data, [

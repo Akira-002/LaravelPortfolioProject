@@ -10,6 +10,37 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function index()
+    {
+        $users = User::all();
+        foreach($users as $user) {
+            $data[] = [
+                'name' => $user->name
+            ];
+        }
+        return $data;
+    }
+
+    public function showSendMessage() {
+        $auth_id = Auth::id();
+        $user = User::find($auth_id);
+        $sendmessages = $user->sendmessage()->select('description')->get();
+        if(!$sendmessages->first()) {
+            return response()->json(['message' => 'Find a place for gratitude.'], 404);
+        }
+        return $sendmessages;
+    }
+
+    public function showReceivedMessage() {
+        $auth_id = Auth::id();
+        $user = User::find($auth_id);
+        $receivedmessages = $user->receivedmessage()->select('description')->get();
+        if(!$receivedmessages->first()) {
+            return response()->json(['message' => 'Tell someone who has nowhere else to go to express their gratitude to you.'], 404);
+        }
+        return $receivedmessages;
+    }
+
     public function showindex()
     {
         $auth_id = Auth::id();
@@ -32,6 +63,12 @@ class UserController extends Controller
     public function sentMessage(Request $request)
     {
         $sender_id = Auth::id();
+        if(!$searchuser = User::where('id', $request->receiver_id)->first()) {
+            return response()->json(['message' => 'Beyond the Universe but I can not find!'], 404);
+        }
+        if($sender_id == $request->receiver_id) {
+            return response()->json(['message' => 'Does that mean the other you?'], 404);
+        }
         $user = User::find($sender_id)->sendmessage();
         $sendmessage = $user->create([
             'description' => $request->description,
