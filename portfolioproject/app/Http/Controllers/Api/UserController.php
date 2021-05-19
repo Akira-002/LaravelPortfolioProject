@@ -24,11 +24,11 @@ class UserController extends Controller
     public function showSendMessage() {
         $auth_id = Auth::id();
         $user = User::find($auth_id);
-        $sendmessages = $user->sendmessage()->select('description')->get();
+        $sendmessages = $user->sendmessage()->select(['id','description'])->get();
         if(!$sendmessages->first()) {
             return response()->json(['message' => 'Find a place for gratitude.'], 404);
         }
-        return $sendmessages;
+        return response()->json($sendmessages);
     }
 
     public function showReceivedMessage() {

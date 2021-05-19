@@ -1,4 +1,6 @@
 const mix = require('laravel-mix');
+const writeFilePlugin = require('write-file-webpack-plugin');
+
 
 /*
  |--------------------------------------------------------------------------
@@ -13,4 +15,11 @@ const mix = require('laravel-mix');
 
 mix.react('resources/js/app.js', 'public/js')
     .sourceMaps()
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'public/css')
+    .webpackConfig(webpack => {
+        return {
+            plugins: [
+                new writeFilePlugin()
+            ]
+        };
+    });

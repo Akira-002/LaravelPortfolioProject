@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 // Auth/helpers
@@ -14,38 +14,8 @@ import DashboardPage from './screens/Dashboard';
 import ErrorsAlert from './screens/ErrorsAlert';
 
 // ../containers
-// import Portfolioproject from '../Portfolioproject';
+// import Portfolioproject from '../Message/Portfolioproject';
 
-
-
-// export const HomePage = (props) => {
-//   console.log('HomePage state', props);
-//   //If the user is loggedIn provide a welcome alert
-//   let userFeedback;
-
-//   if(props.isLoggedIn){
-//     userFeedback = (
-//       <div className="alert alert-success" role="alert">
-//           <h3>You are currently logged in as {props.currentUser.name}</h3>
-//           <p>You have a token to "track your session"</p>
-//       </div>
-//     )
-//   } else {//if not invite him to do so
-//     userFeedback = (
-//       <div className="alert alert-warning" role="alert">
-//           <h3>You are not currently logged in</h3>
-//           <p>Log in to get an access token</p>
-//           <Link className="btn btn-primary btn-large" to="/login">LogIn</Link>
-//       </div>
-//     )
-//   }
-
-//   return (
-//     <Fragment>
-//       {userFeedback}
-//     </Fragment>
-//   );
-// }
 
 export default class AuthApp extends Component {
 
@@ -57,6 +27,7 @@ export default class AuthApp extends Component {
       isLoggedIn: false,
       currentUser: {},
       token: null,
+      messages: [],
       errors:[] //logout errors
     }
 
@@ -64,6 +35,7 @@ export default class AuthApp extends Component {
     this.registrationSubmit = this.registrationSubmit.bind(this);
     this.logoutClicked = this.logoutClicked.bind(this);
     this.loginClicked = this.loginClicked.bind(this);
+    this.handleAddMessage = this.handleAddMessage.bind(this);
   }
 
   //callbacks will be used in the descendant component
@@ -107,6 +79,62 @@ export default class AuthApp extends Component {
     }
   }
 
+  // componentDidMount() {
+  //   fetch('api/sendmessages', {
+  //       mode: 'cors',
+  //       headers : {
+  //           'Content-Type': 'application/json',
+  //           'Accept': 'application/json',
+  //           'Authorization': 'Bearer' + this.props.token
+  //       }
+  //   })
+  //       .then(response => {
+  //           return response.json();
+  //       })
+  //       .then(messages => {
+  //           this.setState({messages});
+  //       });
+  // }
+
+  // fetch('api/sendmessages', {
+  //   mode: 'cors',
+  //   headers : {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json',
+  //       'Authorization': 'Bearer' + this.props.token
+  //   }
+  // })
+  // .then(response => {
+  //   return response.json();
+  // })
+  // .then(messages => {
+  //   this.setState({messages});
+  // });
+
+  handleAddMessage(message) {
+    /*Fetch API for post request */
+    fetch( 'api/messages/', {
+        method:'post',
+        /* headers are important*/
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer' + this.state.token
+        },
+        body: JSON.stringify(message)
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then( data => {
+        this.setState((prevState)=> ({
+            messages: prevState.messages.concat(data),
+        }))
+    })
+    //update the state of messages
+  }
+
+
   render() {
     console.log('AppComponent state ', this.state);
     //HANDLE INPUT ERRORS
@@ -127,12 +155,7 @@ export default class AuthApp extends Component {
             <Route exact path="/" render={(props) =><HomePage {...this.state}/>} />
             <Route exact path="/login" render={(props) => (<LoginPage onLogin={this.loginClicked} {...props} />)} />
             <Route exact path="/register" render={(props) => (<RegisterPage onRegister={this.registrationSubmit} {...props}/>)} />
-
-            {/* <Route exact path="/signin"
-              render={(props) => (<SignInOrUp onLogin={this.loginClicked} onRegister={this.registrationSubmit} {...props}/>)}
-            /> */}
-            <Route exact path="/dashboard" render={(props) => (<DashboardPage {...props} user={this.state.currentUser} />)} />
-            {/* <Route exact path="/" component={Portfolioproject} logoutClicked={this.logoutClicked} /> */}
+            <Route exact path="/dashboard" render={(props) => (<DashboardPage {...props} onAdd={this.handleAddMessage} messages={this.state.messages} user={this.state.currentUser} />)} />
             <Route render={() => <p>not found.</p>} />
           </Switch>
       </Router>

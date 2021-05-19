@@ -9,7 +9,7 @@
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
-    "devDependencies": {
+    "dependencies": {
         "@babel/plugin-proposal-class-properties": "^7.10.4",
         "@babel/preset-env": "^7.9.6",
         "@babel/preset-react": "^7.12.10",
@@ -20,7 +20,7 @@
         "formik": "^2.1.4",
         "jquery": "^3.2",
         "laravel-mix": "^5.0.9",
-        "lodash": "^4.17.19",
+        "lodash": "^4.17.21",
         "popper.js": "^1.12",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
@@ -30,6 +30,7 @@
         "sass": "^1.32.5",
         "sass-loader": "^8.0.0",
         "vue-template-compiler": "^2.6.12",
+        "write-file-webpack-plugin": "^4.5.1",
         "yup": "^0.29.1"
     }
 }
