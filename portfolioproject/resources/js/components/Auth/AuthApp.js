@@ -27,6 +27,7 @@ export default class AuthApp extends Component {
       isLoggedIn: false,
       currentUser: {},
       token: null,
+      users: [],
       receivedMessages: [],
       sendMessages: [],
       errors:[] //logout errors
@@ -40,7 +41,6 @@ export default class AuthApp extends Component {
     this.sendMessageExhibit = this.sendMessageExhibit.bind(this);
     // this.handleAddMessage = this.handleAddMessage.bind(this);
   }
-
 
   //callbacks will be used in the descendant component
   async registrationSubmit(formData, successCallback, errorCallback){
@@ -74,11 +74,16 @@ export default class AuthApp extends Component {
 
   async loginClicked(formData,successCallback, errorCallback){
     try {
-      const { data } = await axios(axiosHelper.getLoginConfig(formData))
+      const { data } = await axios(axiosHelper.getLoginConfig(formData));
       localStorage.setItem("userToken", JSON.stringify(data.token));
       console.log('login response.data ', data);
       successCallback();
       this.setState({ isLoggedIn: true, ...data });
+
+      // Get all users' information
+      const usersData = await axios(axiosHelper.getAllUsers(this.state.token));
+      console.log('login response.UserData ', usersData.data);
+      this.setState({ users: usersData.data })
     } catch(error) {
       errorCallback( error && error.response.data || {error: "Unprocessable entity"});
     }

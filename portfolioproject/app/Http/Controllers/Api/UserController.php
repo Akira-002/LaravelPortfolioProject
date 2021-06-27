@@ -12,13 +12,9 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
-        foreach($users as $user) {
-            $data[] = [
-                'name' => $user->name
-            ];
-        }
-        return $data;
+        $auth_id = Auth::id();
+        $users = User::where('id','!=', $auth_id)->select(['id','name'])->get();
+        return response()->json($users);
     }
 
     public function showSendMessage() {

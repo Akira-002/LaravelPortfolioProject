@@ -36,7 +36,23 @@ export function getLogoutConfig(token){
   }
 }
 
-export function getReceivedMessagesConfig(token){
+export function getAllUsers(){
+  const userToken = JSON.parse(localStorage.getItem('userToken'));
+
+  //assemble the Axios Config with token
+  if(userToken) {
+    return {
+      url: '/api/index',
+      method: 'get',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Authorization' : 'Bearer ' + userToken},
+      responseType: 'json',
+    }
+  }
+}
+
+export function getReceivedMessagesConfig(){
   const userToken = JSON.parse(localStorage.getItem('userToken'));
 
   //assemble the Axios Config with token
@@ -52,7 +68,7 @@ export function getReceivedMessagesConfig(token){
   }
 }
 
-export function getSendMessagesConfig(token){
+export function getSendMessagesConfig(){
   const userToken = JSON.parse(localStorage.getItem('userToken'));
 
   //assemble the Axios Config with token
