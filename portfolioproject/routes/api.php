@@ -16,11 +16,11 @@ Route::middleware('json.response')->group(function () {
 // private routes
 Route::middleware(['auth:api','json.response'])->group(function () {
   //->user - exhibit all user
-  Route::get('/index', 'App\Http\Controllers\Api\UserController@index')->name('user.show');
+  Route::get('/index', 'App\Http\Controllers\Api\UserController@index');
   //->user - exhibit me
-  Route::get('/me', 'App\Http\Controllers\Api\UserController@showindex')->name('user.show');
+  Route::get('/me', 'App\Http\Controllers\Api\UserController@showindex');
   //->user - exhibit others
-  Route::post('/other', 'App\Http\Controllers\Api\UserController@showuser')->name('user.show');
+  Route::post('/other', 'App\Http\Controllers\Api\UserController@showuser');
   //->user - exhibit all send message
   Route::get('/sendmessages', 'App\Http\Controllers\Api\UserController@showSendMessage');
   //->user - exhibit all received message
@@ -28,13 +28,8 @@ Route::middleware(['auth:api','json.response'])->group(function () {
   //->user - sentMessage
   Route::post('/sentmessage', 'App\Http\Controllers\Api\UserController@sentMessage');
   //->logout - GET
-  Route::get('/logout', 'App\Http\Controllers\Api\AuthController@logout')->name('logout');
+  Route::get('/logout', 'App\Http\Controllers\Api\AuthController@logout');
 });
-
-
-// // passport authentification
-// Route::post('register', 'App\Http\Controllers\Auth\AuthController@register');
-// Route::post('login', 'App\Http\Controllers\Auth\AuthController@login');
 
 
 // get  --For checking during development

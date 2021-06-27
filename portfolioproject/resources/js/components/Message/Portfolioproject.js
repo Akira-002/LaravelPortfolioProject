@@ -14,46 +14,46 @@ export default class Portfolioproject extends Component {
         this.handleAddMessage = this.handleAddMessage.bind(this);
     }
 
-    // componentDidMount() {
-    //     fetch('api/sendmessages', {
-    //         mode: 'cors',
-    //         headers : {
-    //             'Content-Type': 'application/json',
-    //             'Accept': 'application/json',
-    //             // 'Authorization': 'Bearer' + this.props.token
-    //         }
-    //     })
-    //         .then(response => {
-    //             return response.json();
-    //         })
-    //         .then(messages => {
-    //             this.setState({messages});
-    //         });
-    // }
+    componentDidMount() {
+        fetch('api/sendmessages', {
+            mode: 'cors',
+            headers : {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                // 'Authorization': 'Bearer' + this.props.token
+            }
+        })
+            .then(response => {
+                return response.json();
+            })
+            .then(messages => {
+                this.setState({messages});
+            });
+    }
 
-    // handleAddMessage(message) {
+    handleAddMessage(message) {
 
-    //     /*Fetch API for post request */
-    //     fetch( 'api/messages/', {
-    //         method:'post',
-    //         /* headers are important*/
-    //         headers: {
-    //           'Accept': 'application/json',
-    //           'Content-Type': 'application/json'
-    //         },
+        /*Fetch API for post request */
+        fetch( 'api/messages/', {
+            method:'post',
+            /* headers are important*/
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
 
-    //         body: JSON.stringify(message)
-    //     })
-    //     .then(response => {
-    //         return response.json();
-    //     })
-    //     .then( data => {
-    //         this.setState((prevState)=> ({
-    //             messages: prevState.messages.concat(data),
-    //         }))
-    //     })
-    //     //update the state of messages
-    // }
+            body: JSON.stringify(message)
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then( data => {
+            this.setState((prevState)=> ({
+                messages: prevState.messages.concat(data),
+            }))
+        })
+        //update the state of messages
+    }
 
     render() {
         return(

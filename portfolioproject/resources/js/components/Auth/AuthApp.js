@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
-// Auth/helpers
-import * as axiosHelper from './helpers/axiosHelper';
+// axios
+import * as axiosHelper from '../helpers/axiosHelper';
 
 // Auth/screens
 // import SignInOrUp from './screens/SignInOrUp';
@@ -11,7 +11,7 @@ import HomePage from './screens/HomePage';
 import LoginPage from './screens/Login';
 import RegisterPage from './screens/Register';
 import DashboardPage from './screens/Dashboard';
-import ErrorsAlert from './screens/ErrorsAlert';
+import ErrorsAlert from '../helpers/ErrorsAlert';
 
 // ../containers
 // import Portfolioproject from '../Message/Portfolioproject';
@@ -27,7 +27,8 @@ export default class AuthApp extends Component {
       isLoggedIn: false,
       currentUser: {},
       token: null,
-      messages: [],
+      receivedMessages: [],
+      sendMessages: [],
       errors:[] //logout errors
     }
 
@@ -35,14 +36,18 @@ export default class AuthApp extends Component {
     this.registrationSubmit = this.registrationSubmit.bind(this);
     this.logoutClicked = this.logoutClicked.bind(this);
     this.loginClicked = this.loginClicked.bind(this);
-    this.handleAddMessage = this.handleAddMessage.bind(this);
+    this.receivedMessageExhibit = this.receivedMessageExhibit.bind(this);
+    this.sendMessageExhibit = this.sendMessageExhibit.bind(this);
+    // this.handleAddMessage = this.handleAddMessage.bind(this);
   }
+
 
   //callbacks will be used in the descendant component
   async registrationSubmit(formData, successCallback, errorCallback){
     console.log('formData', formData);
     try {
-      const {data} = await axios.post('/api/register', {...formData});
+      const {data} = await axios.post('/api/register', {...formData})
+      localStorage.setItem("userToken", JSON.stringify(data.token));
       console.log(data);
       successCallback();
 
@@ -54,10 +59,10 @@ export default class AuthApp extends Component {
     }
   }
 
-  //callbacks will be used in the descendant component
   async logoutClicked(successCallback, errorCallback){
     try {
-      const {data} = await axios(axiosHelper.getLogoutConfig(this.state.token));
+      const {data} = await axios(axiosHelper.getLogoutConfig(this.state.token))
+      localStorage.removeItem("userToken");
       successCallback();
       this.setState({ isLoggedIn: false, currentUser: {}, token: null });
     } catch(error){
@@ -67,10 +72,10 @@ export default class AuthApp extends Component {
     }
   }
 
-  //callbacks will be used in the descendant component
   async loginClicked(formData,successCallback, errorCallback){
     try {
-      const { data } = await axios(axiosHelper.getLoginConfig(formData));
+      const { data } = await axios(axiosHelper.getLoginConfig(formData))
+      localStorage.setItem("userToken", JSON.stringify(data.token));
       console.log('login response.data ', data);
       successCallback();
       this.setState({ isLoggedIn: true, ...data });
@@ -79,60 +84,26 @@ export default class AuthApp extends Component {
     }
   }
 
-  // componentDidMount() {
-  //   fetch('api/sendmessages', {
-  //       mode: 'cors',
-  //       headers : {
-  //           'Content-Type': 'application/json',
-  //           'Accept': 'application/json',
-  //           'Authorization': 'Bearer' + this.props.token
-  //       }
-  //   })
-  //       .then(response => {
-  //           return response.json();
-  //       })
-  //       .then(messages => {
-  //           this.setState({messages});
-  //       });
-  // }
-
-  // fetch('api/sendmessages', {
-  //   mode: 'cors',
-  //   headers : {
-  //       'Content-Type': 'application/json',
-  //       'Accept': 'application/json',
-  //       'Authorization': 'Bearer' + this.props.token
-  //   }
-  // })
-  // .then(response => {
-  //   return response.json();
-  // })
-  // .then(messages => {
-  //   this.setState({messages});
-  // });
-
-  handleAddMessage(message) {
-    /*Fetch API for post request */
-    fetch( 'api/messages/', {
-        method:'post',
-        /* headers are important*/
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer' + this.state.token
-        },
-        body: JSON.stringify(message)
-    })
-    .then(response => {
-        return response.json();
-    })
-    .then( data => {
-        this.setState((prevState)=> ({
-            messages: prevState.messages.concat(data),
-        }))
-    })
-    //update the state of messages
+  async receivedMessageExhibit(){
+    try {
+      const { data } = await axios(axiosHelper.getReceivedMessagesConfig(this.state.token));
+      this.setState({ receivedMessages: data });
+    } catch(error){
+      console.log(error.response.data);
+      this.setState({ errors: [error.response.data.message]});
+    }
   }
+
+  async sendMessageExhibit(){
+    try {
+      const { data } = await axios(axiosHelper.getSendMessagesConfig(this.state.token));
+      this.setState({ sendMessages: data });
+    } catch(error){
+      console.log(error.response.data);
+      this.setState({ errors: [error.response.data.message]});
+    }
+  }
+
 
 
   render() {
@@ -152,10 +123,10 @@ export default class AuthApp extends Component {
           />
           {userFeedback}
           <Switch>
-            <Route exact path="/" render={(props) =><HomePage {...this.state}/>} />
+            <Route exact path="/" render={() =><HomePage {...this.state}/>} />
             <Route exact path="/login" render={(props) => (<LoginPage onLogin={this.loginClicked} {...props} />)} />
             <Route exact path="/register" render={(props) => (<RegisterPage onRegister={this.registrationSubmit} {...props}/>)} />
-            <Route exact path="/dashboard" render={(props) => (<DashboardPage {...props} onAdd={this.handleAddMessage} messages={this.state.messages} user={this.state.currentUser} />)} />
+            <Route exact path="/dashboard" render={() => (<DashboardPage user={this.state.currentUser} onExhibitSend={this.sendMessageExhibit} onExhibitReceived={this.receivedMessageExhibit} {...this.state} />)} />
             <Route render={() => <p>not found.</p>} />
           </Switch>
       </Router>

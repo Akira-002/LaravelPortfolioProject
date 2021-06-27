@@ -34,7 +34,7 @@ class UserController extends Controller
     public function showReceivedMessage() {
         $auth_id = Auth::id();
         $user = User::find($auth_id);
-        $receivedmessages = $user->receivedmessage()->select('description')->get();
+        $receivedmessages = $user->receivedmessage()->select(['id', 'description'])->get();
         if(!$receivedmessages->first()) {
             return response()->json(['message' => 'Tell someone who has nowhere else to go to express their gratitude to you.'], 404);
         }

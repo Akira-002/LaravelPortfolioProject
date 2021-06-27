@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import ErrorsAlert from './ErrorsAlert';
+import ErrorsAlert from '../../helpers/ErrorsAlert';
 
 //material-ui objects
 // import TextField from '@material-ui/core/TextField';
