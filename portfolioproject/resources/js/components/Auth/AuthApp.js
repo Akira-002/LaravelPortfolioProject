@@ -48,13 +48,13 @@ export default class AuthApp extends Component {
     try {
       const {data} = await axios.post('/api/register', {...formData})
       localStorage.setItem("userToken", JSON.stringify(data.token));
-      console.log(data);
+      // console.log(data);
       successCallback();
 
       //data contains currentUser and token
       this.setState({ isLoggedIn: true, ...data });
     } catch(error){
-      console.log(error.response.data);
+      // console.log(error.response.data);
       errorCallback(error.response.data.errors);
     }
   }
@@ -67,7 +67,7 @@ export default class AuthApp extends Component {
       this.setState({ isLoggedIn: false, currentUser: {}, token: null });
     } catch(error){
       errorCallback();
-      console.log(error.response.data);
+      // console.log(error.response.data);
       this.setState({ errors: [error.response.data.message]});
     }
   }
@@ -76,13 +76,13 @@ export default class AuthApp extends Component {
     try {
       const { data } = await axios(axiosHelper.getLoginConfig(formData));
       localStorage.setItem("userToken", JSON.stringify(data.token));
-      console.log('login response.data ', data);
+      // console.log('login response.data ', data);
       successCallback();
       this.setState({ isLoggedIn: true, ...data });
 
       // Get all users' information
       const usersData = await axios(axiosHelper.getAllUsers(this.state.token));
-      console.log('login response.UserData ', usersData.data);
+      // console.log('login response.UserData ', usersData.data);
       this.setState({ users: usersData.data })
     } catch(error) {
       errorCallback( error && error.response.data || {error: "Unprocessable entity"});
@@ -91,24 +91,34 @@ export default class AuthApp extends Component {
 
   async receivedMessageExhibit(){
     try {
-      const { data } = await axios(axiosHelper.getReceivedMessagesConfig(this.state.token));
+      const { data } = await axios(axiosHelper.getReceivedMessagesConfig());
       this.setState({ receivedMessages: data });
     } catch(error){
-      console.log(error.response.data);
+      // console.log(error.response.data);
       this.setState({ errors: [error.response.data.message]});
     }
   }
 
   async sendMessageExhibit(){
     try {
-      const { data } = await axios(axiosHelper.getSendMessagesConfig(this.state.token));
+      const { data } = await axios(axiosHelper.getSendMessagesConfig());
       this.setState({ sendMessages: data });
     } catch(error){
-      console.log(error.response.data);
+      // console.log(error.response.data);
       this.setState({ errors: [error.response.data.message]});
     }
   }
 
+  async sentMessageClicked(receiver_id, description){
+    try {
+      console.log("sentMessageClicked", receiver_id, description);
+      const { data } = await axios(axiosHelper.postSentMessagesConfig(receiver_id, description));
+      // console.log('sentMessage response.data ', data);
+    } catch(error){
+      console.log(error.response.data);
+      // this.setState({ errors: [error.response.data.message]});
+    }
+  }
 
 
   render() {
@@ -131,7 +141,7 @@ export default class AuthApp extends Component {
             <Route exact path="/" render={() =><HomePage {...this.state}/>} />
             <Route exact path="/login" render={(props) => (<LoginPage onLogin={this.loginClicked} {...props} />)} />
             <Route exact path="/register" render={(props) => (<RegisterPage onRegister={this.registrationSubmit} {...props}/>)} />
-            <Route exact path="/dashboard" render={() => (<DashboardPage user={this.state.currentUser} onExhibitSend={this.sendMessageExhibit} onExhibitReceived={this.receivedMessageExhibit} {...this.state} />)} />
+            <Route exact path="/dashboard" render={() => (<DashboardPage user={this.state.currentUser} onSentMessage={this.sentMessageClicked} onExhibitSend={this.sendMessageExhibit} onExhibitReceived={this.receivedMessageExhibit} {...this.state} />)} />
             <Route render={() => <p>not found.</p>} />
           </Switch>
       </Router>

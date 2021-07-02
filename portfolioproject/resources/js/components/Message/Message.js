@@ -23,6 +23,8 @@ class Message extends Component {
         this.clickDescriptionHandler = this.clickDescriptionHandler.bind(this);
         this.handleChangeUser = this.handleChangeUser.bind(this);
         this.handleChangeDescription = this.handleChangeDescription.bind(this);
+        // this.onSubmit = this.onSubmit.bind(this);
+        this.onSentMessageClick = this.onSentMessageClick.bind(this);
         this.onExhibitR = this.onExhibitR.bind(this);
         this.onExhibitS = this.onExhibitS.bind(this);
     }
@@ -54,6 +56,24 @@ class Message extends Component {
             return this.setState({ blankDescriptionAlart: false });
         }
     }
+
+    // onSentMessageClick({e, receiver_id, description}){
+    onSentMessageClick(e){
+        const receiver_id = this.state.selectedUserId
+        const description = this.state.description
+        e.preventDefault();
+        this.props.onSentMessage(receiver_id, description);
+        this.setState({ selectedUserId:"", description:"", modalState:false });
+    }
+    // onSubmit(e) {
+    //     const receiver_id = this.state.selectedUserId
+    //     const description = this.state.description
+    //     e.preventDefault();
+    //     // this.props.onSentMessage(this.state.selectedUserId, this.state.description);
+    //     this.props.onSentMessage(receiver_id, description);
+    //     this.setState({ selectedUserId:"", description:"", modalState:false })
+    // }
+
 
     onExhibitR(e) {
         e.preventDefault();
@@ -99,18 +119,28 @@ class Message extends Component {
                     <div>
                         <button
                             className="btn btn-secondary"
-                            // onClick = {()=>console.log(this.state)}
-                            onClick = {this.clickDescriptionHandler}
+                            onClick={this.clickDescriptionHandler}
                         >
                             Sent message
                         </button>
                     </div>
                 </div>
+                { this.state.modalState == true &&
+                    <div>
+                        <div>{this.state.selectedUserId}</div>
+                        <div>{this.state.description}</div>
+                        <button
+                            className="btn btn-secondary"
+                            onClick={this.onSentMessageClick}
+                        >
+                            Submit
+                        </button>
+                    </div>
+                }
                 <div className="MessagesListPane">
                     <button className="btn btn-secondary"  onClick={this.onExhibitR}>ShowReceivedMessages</button>
                     {this.props.receivedMessages.map((receivedMessage) =>
                         <div key={receivedMessage.id}>
-                            {/* <div>{message.title}</div> */}
                             <span className="listMessage">{receivedMessage.description}</span>
                         </div>
                     )}
@@ -119,7 +149,6 @@ class Message extends Component {
                     <button className="btn btn-secondary"  onClick={this.onExhibitS}>ShowSendMessages</button>
                         {this.props.sendMessages.map((sendMessages) =>
                             <div key={sendMessages.id}>
-                                {/* <div>{message.title}</div> */}
                                 <span className="listMessage">{sendMessages.description}</span>
                             </div>
                     )}

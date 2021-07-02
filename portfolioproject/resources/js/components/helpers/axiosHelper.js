@@ -17,8 +17,7 @@ export function getLoginConfig({ email, password }){
     responseType: 'json',
   }
 
-  console.log('axios data', axiosData);
-  // console.log('login data', loginConfig);
+  // console.log('axios data', axiosData);
 
   return loginConfig;
 
@@ -31,7 +30,8 @@ export function getLogoutConfig(token){
     method: 'get',
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
-      'Authorization' : 'Bearer ' + token},
+      'Authorization' : 'Bearer ' + token
+    },
     responseType: 'json',
   }
 }
@@ -46,7 +46,8 @@ export function getAllUsers(){
       method: 'get',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
-        'Authorization' : 'Bearer ' + userToken},
+        'Authorization' : 'Bearer ' + userToken
+      },
       responseType: 'json',
     }
   }
@@ -82,4 +83,29 @@ export function getSendMessagesConfig(){
       responseType: 'json',
     }
   }
+}
+
+export function postSentMessagesConfig(receiver_id, description){
+  const userToken = JSON.parse(localStorage.getItem('userToken'));
+
+    //Data from the form
+    const messageData = { receiver_id, description };
+
+    //create string for axios
+    const axiosData = Object.keys(messageData).map((key) =>( encodeURIComponent(key) + '=' + encodeURIComponent(messageData[key]))).join('&');
+
+  const sentMessageConfig = {
+    url: '/api/sentmessage',
+    method: 'post',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      'Authorization' : 'Bearer ' + userToken,
+    },
+    data: axiosData,
+    responseType: 'json',
+}
+
+  // console.log('axios data', axiosData);
+
+  return sentMessageConfig;
 }
