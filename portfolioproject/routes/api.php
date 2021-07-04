@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\Message;
+// use App\Models\Message;
 
 
 Route::middleware('json.response')->group(function () {
@@ -20,13 +20,18 @@ Route::middleware(['auth:api','json.response'])->group(function () {
   //->user - exhibit me
   Route::get('/me', 'App\Http\Controllers\Api\UserController@showindex');
   //->user - exhibit target
-  Route::post('/other', 'App\Http\Controllers\Api\UserController@showuser');
+  // Route::post('/other', 'App\Http\Controllers\Api\UserController@showuser');
   //->user - exhibit all send message
   Route::get('/sendmessages', 'App\Http\Controllers\Api\UserController@showSendMessage');
   //->user - exhibit all received message
   Route::get('/receivedmessages', 'App\Http\Controllers\Api\UserController@showReceivedMessage');
   //->user - sentMessage
   Route::post('/sentmessage', 'App\Http\Controllers\Api\UserController@sentMessage');
+
+  //->followrelation - exhibit all mutually follow user
+  Route::get('/mutuallyfollow', 'App\Http\Controllers\Api\FollowRelationController@showFollow');
+  //->followrelation - followingUser
+  Route::post('/followinguser', 'App\Http\Controllers\Api\FollowRelationController@followingUser');
   //->logout - GET
   Route::get('/logout', 'App\Http\Controllers\Api\AuthController@logout');
 });

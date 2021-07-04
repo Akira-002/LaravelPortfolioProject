@@ -47,28 +47,28 @@ class UserController extends Controller
         return response()->json(['message' => 'Who are you,  logged in?'], 404);
     }
 
-    public function showuser(Request $request)
-    {
-        $user = User::where('name', $request->name)->first();
-        if($user) {
-            return response()->json(['targetUserId' => $user->id, 'targetUserName' => $user->name]);
-        }
-        return response()->json(['message' => 'Beyond the Universe but I can not find!'], 404);
-    }
+    // public function showuser(Request $request)
+    // {
+    //     $user = User::where('name', $request->name)->first();
+    //     if($user) {
+    //         return response()->json(['targetUserId' => $user->id, 'targetUserName' => $user->name]);
+    //     }
+    //     return response()->json(['message' => 'Beyond the Universe but I can not find!'], 404);
+    // }
 
     public function sentMessage(Request $request)
     {
-        $sender_id = Auth::id();
+        $auth_id = Auth::id();
         if(!$searchuser = User::where('id', $request->receiver_id)->first()) {
             return response()->json(['message' => 'Beyond the Universe but I can not find!'], 404);
         }
-        if($sender_id == $request->receiver_id) {
+        if($auth_id == $request->receiver_id) {
             return response()->json(['message' => 'Does that mean the other you?'], 404);
         }
-        $user = User::find($sender_id)->sendmessage();
+        $user = User::find($auth_id)->sendmessage();
         $sendmessage = $user->create([
             'description' => $request->description,
-            'sender_id' => $sender_id,
+            'sender_id' => $auth_id,
             'receiver_id' => $request->receiver_id
         ]);
         return response()->json($sendmessage, 201);
