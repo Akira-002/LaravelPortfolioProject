@@ -86,7 +86,7 @@ class Message extends Component {
     }
 
     render() {
-        console.log('MessagePages props', this.props, this.state);
+        // console.log('MessagePages props', this.props, this.state);
         return (
             <Fragment>
                 <div className="sentListPane">

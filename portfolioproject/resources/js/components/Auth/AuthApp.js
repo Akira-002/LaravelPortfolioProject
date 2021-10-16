@@ -122,7 +122,7 @@ export default class AuthApp extends Component {
 
 
   render() {
-    console.log('AppComponent state ', this.state);
+    // console.log('AppComponent state ', this.state);
     //HANDLE INPUT ERRORS
     let userFeedback;
     if (this.state.errors.length !== 0) {

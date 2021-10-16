@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const HomePage = (props) => {
 
-    console.log('HomePage state', props);
+    // console.log('HomePage state', props);
 
     //If the user is loggedIn provide a welcome alert
     let userFeedback;
