@@ -88,7 +88,7 @@ class Message extends Component {
     render() {
         console.log('MessagePages props', this.props, this.state);
         return (
-            <div>
+            <Fragment>
                 <div className="sentListPane">
                     <div>
                         <FormControl variant="outlined" className="userSelect">
@@ -153,7 +153,7 @@ class Message extends Component {
                             </div>
                     )}
                 </div>
-            </div>
+            </Fragment>
         );
     }
 }
