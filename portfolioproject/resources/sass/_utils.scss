@@ -1,0 +1,156 @@
+$layout-step: 4px;
+@for $i from 0 through 40 {
+  $value: $layout-step * $i;
+  .u-mt#{$i} {
+    margin-top: $value !important;
+  }
+  .u-mb#{$i} {
+    margin-bottom: $value !important;
+  }
+  .u-ml#{$i} {
+    margin-left: $value !important;
+  }
+  .u-mr#{$i} {
+    margin-right: $value !important;
+  }
+  .u-pl#{$i} {
+    padding-left: $value !important;
+  }
+  .u-pr#{$i} {
+    padding-right: $value !important;
+  }
+}
+@for $i from 0 through 40 {
+  $value: $layout-step * (-$i);
+  .u-mt--minus#{$i} {
+    margin-top: $value !important;
+  }
+  .u-ml--minus#{$i} {
+    margin-left: $value !important;
+  }
+}
+/** Utils **/
+.u-flex {
+  display: flex;
+}
+.u-flex--noshrink {
+  flex-shrink: 0;
+}
+.u-flex--wrap {
+  flex-wrap: wrap;
+}
+.u-flex--align-center {
+  align-items: center;
+}
+.u-flex--justify-center {
+  justify-content: center;
+}
+.u-flex--space-between {
+  justify-content: space-between;
+}
+.u-flex-column--sp {
+  @include mqSP {
+    flex-direction: column;
+  }
+}
+
+.u-scroll-x {
+  overflow-x: scroll;
+}
+.u-underline {
+  text-decoration: underline;
+}
+.u-link {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #3EB0B1;
+}
+.u-pos-r{
+  position: relative;
+}
+.u-list-num {
+  padding-left: 1em;
+  > li {
+    list-style: decimal;
+    padding-left: 4px;
+  }
+}
+.u-bg-white {
+  background-color: white;
+}
+.u-paragraph {
+  line-height: 1.66;
+}
+.u-bold {
+  font-weight: bold;
+}
+.u-text-center {
+  text-align: center;
+}
+.u-pos-a{
+  position: absolute;
+}
+.u-center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.u-block {
+  display: block;
+}
+.u-inline-block {
+  display: inline-block;
+}
+.u-keep-aspect {
+  position: relative;
+  display: block;
+  &--14x9::before {
+    content: "";
+    display: block;
+    padding-top: 64.3%;
+  }
+
+  &__inner {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+  &__content {
+    width: 100%;
+    height: 100%;
+  }
+}
+.u-hover-opacity {
+  transition: opacity .4s;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+.u-overflow--hidden {
+  overflow: hidden;
+}
+
+.u-fs0 {
+  font-size: 0;
+}
+@for $i from 1 through 12 {
+  $w: #{100 / (12 / $i) + '%'};
+  .u-col#{$i} {
+    width: $w !important;
+  }
+}
+
+@include mqPC {
+  .u-only-sp {
+    display: none !important;
+  }
+}
+@include mqSP {
+  .u-only-pc {
+    display: none !important;
+  }
+}
+

@@ -1,0 +1,18 @@
+.l-section {
+  margin-top: 72px;
+  @include mqSP {
+    margin-top: 64px;
+  }
+}
+.l-section--md {
+  margin-top: 56px;
+  @include mqSP {
+    margin-top: 40px;
+  }
+}
+.l-section--sm {
+  margin-top: 40px;
+  @include mqSP {
+    margin-top: 32px;
+  }
+}

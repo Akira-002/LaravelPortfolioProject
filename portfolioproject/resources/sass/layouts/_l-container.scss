@@ -1,0 +1,23 @@
+@mixin l-container-pc {
+  width: $BREAK_PC;
+  margin-right: auto;
+  margin-left: auto;
+}
+@mixin l-container-sp {
+  width: 100%;
+  padding-left: $CONTAINER_PADDING;
+  padding-right: $CONTAINER_PADDING;
+  max-width: $MAX_WIDTH_SP;
+  box-sizing: border-box;
+  margin-right: auto;
+  margin-left: auto;
+}
+.l-container {
+  @include mqPC {
+    @include l-container-pc;
+  }
+  @include mqSP {
+    @include l-container-sp;
+  }
+}
+

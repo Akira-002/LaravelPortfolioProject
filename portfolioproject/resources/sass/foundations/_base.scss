@@ -1,0 +1,66 @@
+/* --------------------------------
+ * base
+ * -------------------------------- */
+html {
+  font-size: 62.5%;
+  line-height: 1;
+  scroll-behavior: smooth;
+}
+body {
+//   font-family: $FONT_FAMILY;
+  color: $COLOR_GRAY_DEFAULT;
+  background-color: $COLOR_BACKGROUND;
+  margin: auto;
+  font-size: 1.4rem;
+
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "palt";
+  -webkit-text-size-adjust: 100%;
+  width: 100%;
+  letter-spacing: 0.1em;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+*:focus {
+  outline: none;
+}
+
+h1,h2,h3,h4,h5,h6,
+p,
+ul {
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+}
+ul {
+  list-style-type: none;
+}
+select {
+  border-radius: 0;
+}
+button, button:focus {
+  border: none;
+}
+
+a {
+  color: inherit;
+}
+a, a:focus, a:active, a:hover {
+  tap-highlight-color:rgba(0,0,0,0);
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+}
+
+th {
+  font-weight: $FONT_WEIGHT_BOLD;
+}
+
+// safariでplaceholderが上にずれる対策
+input::-webkit-input-placeholder {
+  padding-top: 0.075em;
+}
+

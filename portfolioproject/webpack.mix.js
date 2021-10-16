@@ -15,7 +15,7 @@ const writeFilePlugin = require('write-file-webpack-plugin');
 
 mix.react('resources/js/app.js', 'public/js')
     .sourceMaps()
-    .sass('resources/sass/app.scss', 'public/css')
+    .sass('resources/sass/style.scss', 'public/css')
     .webpackConfig(webpack => {
         return {
             plugins: [

@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 // import rootReducer from './reducers/index';
 // import App from './containers/App';
 import AuthApp from './Auth/AuthApp';
-import '../../sass/app.scss';
+import '../../sass/style.scss';
 
 
 // const store = createStore(

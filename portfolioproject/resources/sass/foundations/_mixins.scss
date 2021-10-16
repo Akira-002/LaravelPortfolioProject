@@ -1,0 +1,30 @@
+@mixin mqSP() {
+  @media screen and (max-width: #{$BREAK_PC - 1}) {
+    @content;
+  }
+}
+@mixin mqPC() {
+  @media screen and (min-width: #{$BREAK_PC}) {
+    @content;
+  }
+}
+
+@mixin ellipsis($rows: 3) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $rows;
+  overflow: hidden;
+}
+
+@mixin outline($color: #fff, $border-color: #000, $border-width: 1px, $blur: 1px) {
+  color: $color;
+  text-shadow :
+    $border-width  $border-width $blur $border-color,
+    -$border-width  $border-width $blur $border-color,
+    $border-width -$border-width $blur $border-color,
+    -$border-width -$border-width $blur $border-color,
+    $border-width  0px $blur $border-color,
+    0px  $border-width $blur $border-color,
+    -$border-width  0px $blur $border-color,
+    0px -$border-width $blur $border-color;        /* 文字の影 */
+}

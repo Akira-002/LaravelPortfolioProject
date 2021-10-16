@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import Message from '../../Message/Message';
+import SearchBar from '../../Search/SearchBar';
 // import AddMessage from '../../Message/AddMessage';
 
 const DashboardPage = (props) => {
@@ -7,7 +8,9 @@ const DashboardPage = (props) => {
   return(
     <Fragment>
       <div className="jumbotron">
+
         <Message {...props}/>
+        <SearchBar/>
           {/* <AddMessage onAdd={this.handleAddMessage} /> */}
       </div>
 

@@ -1,0 +1,27 @@
+.search{
+    display: flex;
+    justify-content: center;
+}
+.search__bar{
+    display: flex;
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 999px;
+    background-color: #f0f2f5;
+}
+.search__bar > input {
+    border: none !important;
+    background-color: #f0f2f5;
+}
+
+.search__bar > input:focus {
+    outline-width: 0;
+}
+
+.search__bar > input::placeholder{
+    text-align: left;
+    font-size: 15px;
+}
+.search__bar > .MuiSvgIcon-root {
+    margin-right: 5px;
+}
