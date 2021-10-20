@@ -36,21 +36,45 @@ export function getLogoutConfig(token){
   }
 }
 
-export function getAllUsers(){
-  const userToken = JSON.parse(localStorage.getItem('userToken'));
+export function getUsers(search_word){
+    const userToken = JSON.parse(localStorage.getItem('userToken'));
 
-  //assemble the Axios Config with token
-  if(userToken) {
-    return {
-      url: '/api/index',
-      method: 'get',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'Authorization' : 'Bearer ' + userToken
-      },
-      responseType: 'json',
+    //Data from the form
+    const searchWord = {search_word};
+
+    //create string for axios
+    const axiosData = Object.keys(searchWord).map((key) =>( encodeURIComponent(key) + '=' + encodeURIComponent(searchWord[key]))).join('&');
+
+    if(!searchWord) {
+        const getUsersConfig = {
+            url: '/api/index',
+            method: 'get',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization' : 'Bearer ' + userToken,
+                // 'Content-Type': 'application/json'
+            },
+            data: axiosData,
+            responseType: 'json',
+        }
+        // console.log('axios data', axiosData);
+        return getUsersConfig;
+    } else {
+        const getUsersConfig = {
+            url: '/api/index',
+            method: 'post',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization' : 'Bearer ' + userToken,
+                // 'Content-Type': 'application/json'
+            },
+            data: axiosData,
+            responseType: 'json',
+        }
+        // console.log('axios data', axiosData);
+        return getUsersConfig;
     }
-  }
+
 }
 
 export function getReceivedMessagesConfig(){

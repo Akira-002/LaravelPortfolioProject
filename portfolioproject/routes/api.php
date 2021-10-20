@@ -17,6 +17,7 @@ Route::middleware('json.response')->group(function () {
 Route::middleware(['auth:api','json.response'])->group(function () {
   //->user - exhibit all user without me
   Route::get('/index', 'App\Http\Controllers\Api\UserController@index');
+  Route::post('/index', 'App\Http\Controllers\Api\UserController@index');
   //->user - exhibit me
   Route::get('/me', 'App\Http\Controllers\Api\UserController@showindex');
   //->user - exhibit target

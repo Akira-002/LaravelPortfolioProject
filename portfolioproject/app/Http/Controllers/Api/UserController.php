@@ -10,10 +10,14 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function index()
-    {
+    public function index(Request $request) {
+        $keyword = $request->input('search_word');
         $auth_id = Auth::id();
         $users = User::where('id','!=', $auth_id)->select(['id','name'])->get();
+        if(!empty($keyword)) {
+            $query = User::query();
+            $users = $query->where('name','like','%'.$keyword.'%')->get();
+        }
         return response()->json($users);
     }
 
@@ -37,8 +41,7 @@ class UserController extends Controller
         return $receivedmessages;
     }
 
-    public function showindex()
-    {
+    public function showindex() {
         $auth_id = Auth::id();
         $user = User::find($auth_id);
         if($user) {
@@ -56,8 +59,7 @@ class UserController extends Controller
     //     return response()->json(['message' => 'Beyond the Universe but I can not find!'], 404);
     // }
 
-    public function sentMessage(Request $request)
-    {
+    public function sentMessage(Request $request) {
         $auth_id = Auth::id();
         if(!$searchuser = User::where('id', $request->receiver_id)->first()) {
             return response()->json(['message' => 'Beyond the Universe but I can not find!'], 404);

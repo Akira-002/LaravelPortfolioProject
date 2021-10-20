@@ -81,7 +81,7 @@ export default class AuthApp extends Component {
       this.setState({ isLoggedIn: true, ...data });
 
       // Get all users' information
-      const usersData = await axios(axiosHelper.getAllUsers(this.state.token));
+      const usersData = await axios(axiosHelper.getUsers(this.state.token));
       // console.log('login response.UserData ', usersData.data);
       this.setState({ users: usersData.data })
     } catch(error) {
