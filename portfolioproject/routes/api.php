@@ -21,7 +21,7 @@ Route::middleware(['auth:api','json.response'])->group(function () {
   //->user - exhibit me
   Route::get('/me', 'App\Http\Controllers\Api\UserController@showindex');
   //->user - exhibit target
-  // Route::post('/other', 'App\Http\Controllers\Api\UserController@showuser');
+  Route::post('/detail', 'App\Http\Controllers\Api\UserController@showuser');
   //->user - exhibit all send message
   Route::get('/sendmessages', 'App\Http\Controllers\Api\UserController@showSendMessage');
   //->user - exhibit all received message

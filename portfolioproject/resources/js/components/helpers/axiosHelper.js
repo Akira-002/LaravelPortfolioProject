@@ -52,12 +52,10 @@ export function getUsers(search_word){
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
                 'Authorization' : 'Bearer ' + userToken,
-                // 'Content-Type': 'application/json'
             },
             data: axiosData,
             responseType: 'json',
         }
-        // console.log('axios data', axiosData);
         return getUsersConfig;
     } else {
         const getUsersConfig = {
@@ -66,16 +64,36 @@ export function getUsers(search_word){
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
                 'Authorization' : 'Bearer ' + userToken,
-                // 'Content-Type': 'application/json'
             },
             data: axiosData,
             responseType: 'json',
         }
-        // console.log('axios data', axiosData);
         return getUsersConfig;
     }
+}
+
+export function getUserDetail(user_id){
+    const userToken = JSON.parse(localStorage.getItem('userToken'));
+
+    const userId = {user_id};
+
+    //create string for axios
+    const axiosData = Object.keys(userId).map((key) =>( encodeURIComponent(key) + '=' + encodeURIComponent(userId[key]))).join('&');
+
+    const getUsersConfig = {
+        url: '/api/detail',
+        method: 'post',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Authorization' : 'Bearer ' + userToken,
+        },
+        data: axiosData,
+        responseType: 'json',
+    }
+    return getUsersConfig;
 
 }
+
 
 export function getReceivedMessagesConfig(){
   const userToken = JSON.parse(localStorage.getItem('userToken'));
@@ -92,6 +110,8 @@ export function getReceivedMessagesConfig(){
     }
   }
 }
+
+
 
 export function getSendMessagesConfig(){
   const userToken = JSON.parse(localStorage.getItem('userToken'));

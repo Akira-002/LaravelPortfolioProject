@@ -11,14 +11,18 @@ class InitSearch extends Component {
             searchWord: "",
             users: [],
             following_user_id: [2, 14],
-            distributied_users: []
+            distributied_users: [],
+            specific_user_data: []
         }
         this.onSearchUser = this.onSearchUser.bind(this);
         this.calculateUsersSituation = this.calculateUsersSituation.bind(this);
         this.onSearchUserClick = this.onSearchUserClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.onShowUserClick = this.onShowUserClick.bind(this);
     }
 
+
+    // about show users
     async onSearchUser(search_word) {
         try {
           const response = await axios(axiosHelper.getUsers(search_word));
@@ -28,7 +32,6 @@ class InitSearch extends Component {
           console.log(error.response.data);
         }
     }
-
     calculateUsersSituation() {
         this.setState(state => {
             const following_user_id = this.state.following_user_id;
@@ -42,12 +45,28 @@ class InitSearch extends Component {
             }
         }, () => {});
     }
-
     onSearchUserClick(e) {
         const search_word = this.state.searchWord
         e.preventDefault();
         this.onSearchUser(search_word);
     }
+
+
+    // about show specific user
+    async onShowUser(user_id) {
+        try {
+          const response = await axios(axiosHelper.getUserDetail(user_id));
+          this.setState({specific_user_data: response.data})
+        } catch(error){
+          console.log(error.response.data);
+        }
+    }
+    onShowUserClick(event) {
+        const user_id = event.currentTarget.id;
+        event.preventDefault();
+        this.onShowUser(user_id);
+    }
+
 
     componentDidMount() {
         this.onSearchUser(this.state.searchWord);
@@ -79,14 +98,25 @@ class InitSearch extends Component {
                             Search
                         </button>
                     </div>
-                    <div className="c-search__user-list">
+
+                    <div className="c-search__detail">
+                        { this.state.specific_user_data &&
+                            <Fragment>
+                                <div>{this.state.specific_user_data.name}</div>
+                            </Fragment>
+                        }
+                    </div>
+
+                    <div className="c-search__list">
                         <div className="user-list">
                             {this.state.users.map((user) =>
                                 <Fragment key={user.id}>
-                                    <div className="user-list__item" value={user.id}>{user.name}
+                                    <div className="user-list__item" value={user.id}>
+                                        {user.name}
                                         <button
+                                            id={user.id}
                                             className="btn c-icon__btn"
-                                            // onClick={this.onSearchUserClick}
+                                            onClick={this.onShowUserClick}
                                         >
                                             <EmojiPeopleIcon />
                                         </button>

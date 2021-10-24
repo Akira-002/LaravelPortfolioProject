@@ -50,14 +50,14 @@ class UserController extends Controller
         return response()->json(['message' => 'Who are you,  logged in?'], 404);
     }
 
-    // public function showuser(Request $request)
-    // {
-    //     $user = User::where('name', $request->name)->first();
-    //     if($user) {
-    //         return response()->json(['targetUserId' => $user->id, 'targetUserName' => $user->name]);
-    //     }
-    //     return response()->json(['message' => 'Beyond the Universe but I can not find!'], 404);
-    // }
+    public function showuser(Request $request)
+    {
+        $user = User::where('id', $request->input('user_id'))->first();
+        if($user) {
+            return response()->json(['id' => $user->id, 'name' => $user->name]);
+        }
+        return response()->json(['message' => 'Beyond the Universe but I can not find!'], 404);
+    }
 
     public function sentMessage(Request $request) {
         $auth_id = Auth::id();
