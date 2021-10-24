@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
+import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import * as axiosHelper from '../helpers/axiosHelper';
 
 
@@ -8,26 +9,39 @@ class InitSearch extends Component {
         super(props);
         this.state = {
             searchWord: "",
-            users: []
+            users: [],
+            following_user_id: [2, 14],
+            distributied_users: []
         }
         this.onSearchUser = this.onSearchUser.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this.calculateUsersSituation = this.calculateUsersSituation.bind(this);
         this.onSearchUserClick = this.onSearchUserClick.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     async onSearchUser(search_word) {
         try {
           const response = await axios(axiosHelper.getUsers(search_word));
           this.setState({users: response.data})
-          console.log(response.data);
+          this.calculateUsersSituation();
         } catch(error){
           console.log(error.response.data);
-          // this.setState({ errors: [error.response.data.message]});
         }
     }
 
-    handleChange(e) {
-        this.setState({[e.target.name] : e.target.value });
+    calculateUsersSituation() {
+        this.setState(state => {
+            const following_user_id = this.state.following_user_id;
+            const calculating_users = state.users;
+            if(following_user_id !== []) {
+                for(var i = 0; i < following_user_id.length; i++){
+                    console.log("following_user_id", following_user_id);
+                    const targetIndex = calculating_users.findIndex(({id}) => id === following_user_id[i]);
+                    calculating_users.splice(targetIndex, 1);
+                }
+                return state.distributied_users = calculating_users;
+            }
+        }, () => { console.log("distributied_users", this.state.distributied_users); });
     }
 
     onSearchUserClick(e) {
@@ -39,6 +53,12 @@ class InitSearch extends Component {
     componentDidMount() {
         this.onSearchUser(this.state.searchWord);
     }
+
+    handleChange(e) {
+        this.setState({[e.target.name] : e.target.value });
+    }
+
+
 
     render() {
         return (
@@ -63,7 +83,16 @@ class InitSearch extends Component {
                     <div className="c-search__user-list">
                         <div className="user-list">
                             {this.state.users.map((user) =>
-                                <div className="user-list__item" key={user.id} value={user.id}>{user.name}</div>
+                                <Fragment key={user.id}>
+                                    <div className="user-list__item" value={user.id}>{user.name}
+                                        <button
+                                            className="btn c-icon__btn"
+                                            // onClick={this.onSearchUserClick}
+                                        >
+                                            <EmojiPeopleIcon />
+                                        </button>
+                                    </div>
+                                </Fragment>
                             )}
                         </div>
                     </div>
