@@ -33,15 +33,14 @@ class InitSearch extends Component {
         this.setState(state => {
             const following_user_id = this.state.following_user_id;
             const calculating_users = state.users;
-            if(following_user_id !== []) {
+            if(following_user_id !== [] && calculating_users.findIndex(({id}) => id === following_user_id[0]) !== -1) {
                 for(var i = 0; i < following_user_id.length; i++){
-                    console.log("following_user_id", following_user_id);
                     const targetIndex = calculating_users.findIndex(({id}) => id === following_user_id[i]);
                     calculating_users.splice(targetIndex, 1);
                 }
                 return state.distributied_users = calculating_users;
             }
-        }, () => { console.log("distributied_users", this.state.distributied_users); });
+        }, () => {});
     }
 
     onSearchUserClick(e) {
