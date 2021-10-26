@@ -42,4 +42,12 @@ class User extends Authenticatable
             'receiver_id'
         );
     }
+
+    public function following_user()
+    {
+        return $this->hasMany(
+            FollowRelation::class,
+            'followed_user_id'
+        );
+    }
 }

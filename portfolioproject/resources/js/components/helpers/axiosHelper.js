@@ -153,3 +153,30 @@ export function postSentMessagesConfig(receiver_id, description){
 
   return sentMessageConfig;
 }
+
+export function postFollowUserConfig(following_user_id){
+    const userToken = JSON.parse(localStorage.getItem('userToken'));
+
+    //Data from the form
+    const messageData = { following_user_id };
+
+    if(!following_user_id) {
+        return console.log("What the hell do you want?");
+    }
+
+    //create string for axios
+    const axiosData = Object.keys(messageData).map((key) =>( encodeURIComponent(key) + '=' + encodeURIComponent(messageData[key]))).join('&');
+
+    const sentMessageConfig = {
+        url: '/api/followinguser',
+        method: 'post',
+        headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Authorization' : 'Bearer ' + userToken,
+        },
+        data: axiosData,
+        responseType: 'json',
+    }
+
+    return sentMessageConfig;
+}

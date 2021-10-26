@@ -13,18 +13,24 @@ class FollowRelationController extends Controller
     public function followingUser(Request $request)
     {
         $auth_id = Auth::id();
-        if(!$searchuser = User::where('id', $request->following_user_id)->first()) {
-            return response()->json(['message' => 'Beyond the Universe but I can not find!'], 404);
-        }
         if($auth_id == $request->following_user_id) {
             return response()->json(['message' => 'Does that mean the other you?'], 404);
         }
-        $following = FollowRelation::find($auth_id)->following();
-        $sendmessage = $following->create([
+
+        $following_users = FollowRelation::where('followed_user_id', $auth_id)->get();
+        $following_status = $following_users->where('following_user_id', $request->following_user_id)->first();
+        if(!empty($following_status)) {
+            return response()->json(['message' => "You've already sent in your application, so let's wait a little longer..."], 404);
+        }
+        if(!$searchuser = User::where('id', $request->following_user_id)->first()) {
+            return response()->json(['message' => 'Beyond the Universe but I can not find!'], 404);
+        }
+        $following = User::find($auth_id)->following_user();
+        $send_appliciation = $following->create([
             'followed_user_id' => $auth_id,
             'following_user_id' => $request->following_user_id
         ]);
-        return response()->json($sendmessage, 201);
+        return response()->json($send_appliciation, 201);
     }
 
     public function showFollow(Request $request)

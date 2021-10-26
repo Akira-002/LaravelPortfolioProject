@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
+import ContactsIcon from '@mui/icons-material/Contacts';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+import CloseIcon from '@mui/icons-material/Close';
 import * as axiosHelper from '../helpers/axiosHelper';
 
 
@@ -12,15 +14,17 @@ class InitSearch extends Component {
             users: [],
             following_user_id: [2, 14],
             distributied_users: [],
-            specific_user_data: []
+            specific_user_data: [],
+            error_message: [],
         }
         this.onSearchUser = this.onSearchUser.bind(this);
         this.calculateUsersSituation = this.calculateUsersSituation.bind(this);
         this.onSearchUserClick = this.onSearchUserClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.onShowUserClick = this.onShowUserClick.bind(this);
+        this.onFollowUserClick = this.onFollowUserClick.bind(this);
+        this.onCloseClick = this.onCloseClick.bind(this);
     }
-
 
     // about show users
     async onSearchUser(search_word) {
@@ -51,7 +55,6 @@ class InitSearch extends Component {
         this.onSearchUser(search_word);
     }
 
-
     // about show specific user
     async onShowUser(user_id) {
         try {
@@ -67,16 +70,33 @@ class InitSearch extends Component {
         this.onShowUser(user_id);
     }
 
+    // follow user
+    async onFollowUser(following_user_id) {
+        try {
+          const response = await axios(axiosHelper.postFollowUserConfig(following_user_id));
+          this.setState({specific_user_data: response.data})
+        } catch(error){
+          this.setState({error_message: error.response.data.message});
+        }
+    }
+    onFollowUserClick(event) {
+        const following_user_id = this.state.specific_user_data.id;
+        event.preventDefault();
+        this.onFollowUser(following_user_id);
+    }
 
-    componentDidMount() {
-        this.onSearchUser(this.state.searchWord);
+    onCloseClick() {
+        this.setState({specific_user_data: []});
+        this.setState({error_message: []});
     }
 
     handleChange(e) {
         this.setState({[e.target.name] : e.target.value });
     }
 
-
+    componentDidMount() {
+        this.onSearchUser(this.state.searchWord);
+    }
 
     render() {
         return (
@@ -99,13 +119,25 @@ class InitSearch extends Component {
                         </button>
                     </div>
 
-                    <div className="c-search__detail">
-                        { this.state.specific_user_data &&
-                            <Fragment>
-                                <div>{this.state.specific_user_data.name}</div>
-                            </Fragment>
-                        }
-                    </div>
+                    {this.state.error_message &&
+                        <a>
+                            {this.state.error_message}
+                        </a>
+                    }
+
+                    {this.state.specific_user_data &&
+                        <div className="c-search__detail">
+                            <div>{this.state.specific_user_data.name}</div>
+                            <button
+                                id={this.state.specific_user_data.id}
+                                className="btn c-icon__btn"
+                                onClick={this.onFollowUserClick}
+                            >
+                                <EmojiPeopleIcon />
+                            </button>
+                            <button><CloseIcon onClick={this.onCloseClick}/></button>
+                        </div>
+                    }
 
                     <div className="c-search__list">
                         <div className="user-list">
@@ -118,7 +150,7 @@ class InitSearch extends Component {
                                             className="btn c-icon__btn"
                                             onClick={this.onShowUserClick}
                                         >
-                                            <EmojiPeopleIcon />
+                                            <ContactsIcon />
                                         </button>
                                     </div>
                                 </Fragment>
