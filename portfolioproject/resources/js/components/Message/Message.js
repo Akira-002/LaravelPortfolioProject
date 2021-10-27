@@ -8,12 +8,14 @@ import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 // import Modal from '@material-ui/core/Modal';
 
+import * as axiosHelper from '../helpers/axiosHelper';
 
 
 class Message extends Component {
     constructor(props){
         super(props);
         this.state = {
+            mutually_follow_users: [],
             selectedUserId: "",
             description: "",
             blankSelectAlart: false,
@@ -27,6 +29,19 @@ class Message extends Component {
         this.onSentMessageClick = this.onSentMessageClick.bind(this);
         this.onExhibitR = this.onExhibitR.bind(this);
         this.onExhibitS = this.onExhibitS.bind(this);
+    }
+
+    async onGetMutuallyUser() {
+        try {
+            const response = await axios(axiosHelper.getMutuallyUserConfig());
+            const clean_array = response.data
+            const caluculated_array = clean_array.flat();
+            this.setState((state) => {
+                state.mutually_follow_users = caluculated_array;
+            }, () => {console.log('mutually_follow_users', this.state.mutually_follow_users)});
+        } catch(error){
+            console.log(error.response.data);
+        }
     }
 
     clickDescriptionHandler() {
@@ -85,6 +100,10 @@ class Message extends Component {
         this.props.onExhibitSend();
     }
 
+    componentDidMount() {
+        this.onGetMutuallyUser();
+    }
+
     render() {
         // console.log('MessagePages props', this.props, this.state);
         return (
@@ -100,8 +119,10 @@ class Message extends Component {
                                 onChange={this.handleChangeUser}
                                 label="Searching for someone"
                             >
-                                {this.props.users.map((user) =>
-                                    <MenuItem key={user.id} value={user.id}>{user.name}</MenuItem>
+                                {this.state.mutually_follow_users.map((mutually_follow_user) =>
+                                    <MenuItem key={mutually_follow_user.id} value={mutually_follow_user.id}>
+                                        {mutually_follow_user.name}
+                                    </MenuItem>
                                 )}
                             </Select>
                         </FormControl>
