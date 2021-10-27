@@ -33,6 +33,34 @@ class FollowRelationController extends Controller
         return response()->json($send_appliciation, 201);
     }
 
+    public function showFollowedUser(Request $request)
+    {
+        // Extraction of users in a follow relationship
+        $auth_id = Auth::id();
+        $following = FollowRelation::where('following_user_id', $auth_id)->select(['followed_user_id'])->get();
+        $following_user_obj = json_decode(json_encode($following), true);
+        $following_user_id = array_column($following_user_obj, 'followed_user_id');
+        $following_users = [];
+        foreach($following_user_id as $following_user_id) {
+            array_push($following_users, User::where('id', $following_user_id)->select(['id', 'name'])->get());
+        }
+        return response()->json($following_users);
+    }
+
+    public function showFollowingUser(Request $request)
+    {
+        // Extraction of users in a follow relationship
+        $auth_id = Auth::id();
+        $followed = FollowRelation::where('followed_user_id', $auth_id)->select(['following_user_id'])->get();
+        $followed_user_obj = json_decode(json_encode($followed), true);
+        $followed_user_id = array_column($followed_user_obj, 'following_user_id');
+        $followed_users = [];
+        foreach($followed_user_id as $followed_user_id) {
+            array_push($followed_users, User::where('id', $followed_user_id)->select(['id', 'name'])->get());
+        }
+        return response()->json($followed_users);
+    }
+
     public function showFollow(Request $request)
     {
         // Extraction of users in a follow relationship

@@ -180,3 +180,51 @@ export function postFollowUserConfig(following_user_id){
 
     return sentMessageConfig;
 }
+
+export function getFollowedUserConfig(){
+    const userToken = JSON.parse(localStorage.getItem('userToken'));
+
+    //assemble the Axios Config with token
+    if(userToken) {
+      return {
+        url: '/api/followeduser',
+        method: 'get',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'Authorization' : 'Bearer ' + userToken},
+        responseType: 'json',
+      }
+    }
+}
+
+export function getFollowingUserConfig(){
+    const userToken = JSON.parse(localStorage.getItem('userToken'));
+
+    //assemble the Axios Config with token
+    if(userToken) {
+        return {
+        url: '/api/followinguser',
+        method: 'get',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Authorization' : 'Bearer ' + userToken},
+        responseType: 'json',
+        }
+    }
+}
+
+export function getMutuallyUserConfig(){
+    const userToken = JSON.parse(localStorage.getItem('userToken'));
+
+    //assemble the Axios Config with token
+    if(userToken) {
+        return {
+        url: '/api/mutuallyfollow',
+        method: 'get',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Authorization' : 'Bearer ' + userToken},
+        responseType: 'json',
+        }
+    }
+}

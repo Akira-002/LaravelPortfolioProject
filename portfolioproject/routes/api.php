@@ -31,6 +31,10 @@ Route::middleware(['auth:api','json.response'])->group(function () {
 
   //->followrelation - exhibit all mutually follow user
   Route::get('/mutuallyfollow', 'App\Http\Controllers\Api\FollowRelationController@showFollow');
+  //->followrelation - exhibit followed user
+  Route::get('/followeduser', 'App\Http\Controllers\Api\FollowRelationController@showFollowedUser');
+  //->followrelation - exhibit followinguser user
+  Route::get('/followinguser', 'App\Http\Controllers\Api\FollowRelationController@showFollowingUser');
   //->followrelation - followingUser
   Route::post('/followinguser', 'App\Http\Controllers\Api\FollowRelationController@followingUser');
   //->logout - GET

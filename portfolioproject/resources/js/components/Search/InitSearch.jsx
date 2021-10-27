@@ -12,19 +12,93 @@ class InitSearch extends Component {
         this.state = {
             searchWord: "",
             users: [],
-            following_user_id: [2, 14],
+            followed_users: [],
+            following_users: [],
+            mutually_follow_users_id: [],
+            only_following_user_id: [],
+            only_followed_user_id: [],
             distributied_users: [],
             specific_user_data: [],
             error_message: [],
         }
+        this.onGetMutuallyUser = this.onGetMutuallyUser.bind(this);
+        this.onGetFollowingUser = this.onGetFollowingUser.bind(this);
         this.onSearchUser = this.onSearchUser.bind(this);
         this.calculateUsersSituation = this.calculateUsersSituation.bind(this);
         this.onSearchUserClick = this.onSearchUserClick.bind(this);
+        this.showFollowedUser = this.showFollowedUser.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.onShowUserClick = this.onShowUserClick.bind(this);
         this.onFollowUserClick = this.onFollowUserClick.bind(this);
         this.onCloseClick = this.onCloseClick.bind(this);
     }
+
+    async onGetMutuallyUser() {
+        try {
+            const response = await axios(axiosHelper.getMutuallyUserConfig());
+            const clean_array = response.data
+            // TODO: 一般化して繰り返さない
+            const caluculated_array = clean_array.flat();
+            const caluculated_array_id = caluculated_array.map((object) => object.id);
+            this.setState((state) => {
+                state.mutually_follow_users_id = caluculated_array_id;
+            }, () => {console.log('mutually_follow_users_id', this.state.mutually_follow_users_id)});
+        } catch(error){
+            console.log(error.response.data);
+        }
+    }
+    async onGetFollowingUser() {
+        try {
+            const response = await axios(axiosHelper.getFollowingUserConfig());
+            const clean_array = response.data
+            // TODO: 一般化して繰り返さない
+            const caluculated_array = clean_array.flat();
+            // const caluculated_array_id = caluculated_array.map((object) => object.id);
+            // console.log('following_user_id', caluculated_array_id);
+            // TODO: indexOfを使わない
+            this.setState((state) => {
+                // console.log('mutually_follow_users_id', state.mutually_follow_users_id);
+                const mutually_follow_users_id = state.mutually_follow_users_id
+                if(mutually_follow_users_id !== [] && caluculated_array.findIndex(({id}) => id === mutually_follow_users_id[0]) !== -1) {
+                    for(var i = 0; i < mutually_follow_users_id.length; i++){
+                        const targetIndex = caluculated_array.findIndex(({id}) => id === mutually_follow_users_id[i]);
+                        caluculated_array.splice(targetIndex, 1);
+                    }
+                    return state.following_users = caluculated_array;
+                }
+            }, () => {});
+
+            console.log('only_following_user_id', this.state.following_users);
+        } catch(error){
+            console.log(error.response.data);
+        }
+    }
+    // about show followed user
+    async showFollowedUser() {
+        try {
+            const response = await axios(axiosHelper.getFollowedUserConfig());
+            const clean_array = response.data
+            // TODO: 一般化して繰り返さない
+            const caluculated_array = clean_array.flat();
+            const caluculated_array_id = caluculated_array.map((object) => object.id);
+            console.log('followed_users', caluculated_array_id);
+            // TODO: indexOfを使わない
+            this.setState((state) => {
+                // console.log('mutually_follow_users_id', this.state.mutually_follow_users_id);
+                const mutually_follow_users_id = state.mutually_follow_users_id
+                if(mutually_follow_users_id !== [] && caluculated_array.findIndex(({id}) => id === mutually_follow_users_id[0]) !== -1) {
+                    for(var i = 0; i < mutually_follow_users_id.length; i++){
+                        const targetIndex = caluculated_array.findIndex(({id}) => id === mutually_follow_users_id[i]);
+                        caluculated_array.splice(targetIndex, 1);
+                    }
+                    return state.followed_users = caluculated_array;
+                }
+            }, () => {});
+            console.log('only_followed_users', this.state.followed_users);
+        } catch(error){
+            console.log(error.response.data);
+        }
+    };
 
     // about show users
     async onSearchUser(search_word) {
@@ -38,11 +112,11 @@ class InitSearch extends Component {
     }
     calculateUsersSituation() {
         this.setState(state => {
-            const following_user_id = this.state.following_user_id;
+            const only_following_user_id = this.state.only_following_user_id;
             const calculating_users = state.users;
-            if(following_user_id !== [] && calculating_users.findIndex(({id}) => id === following_user_id[0]) !== -1) {
-                for(var i = 0; i < following_user_id.length; i++){
-                    const targetIndex = calculating_users.findIndex(({id}) => id === following_user_id[i]);
+            if(only_following_user_id !== [] && calculating_users.findIndex(({id}) => id === only_following_user_id[0]) !== -1) {
+                for(var i = 0; i < only_following_user_id.length; i++){
+                    const targetIndex = calculating_users.findIndex(({id}) => id === only_following_user_id[i]);
                     calculating_users.splice(targetIndex, 1);
                 }
                 return state.distributied_users = calculating_users;
@@ -71,18 +145,18 @@ class InitSearch extends Component {
     }
 
     // follow user
-    async onFollowUser(following_user_id) {
+    async onFollowUser(only_following_user_id) {
         try {
-          const response = await axios(axiosHelper.postFollowUserConfig(following_user_id));
+          const response = await axios(axiosHelper.postFollowUserConfig(only_following_user_id));
           this.setState({specific_user_data: response.data})
         } catch(error){
           this.setState({error_message: error.response.data.message});
         }
     }
     onFollowUserClick(event) {
-        const following_user_id = this.state.specific_user_data.id;
+        const only_following_user_id = this.state.specific_user_data.id;
         event.preventDefault();
-        this.onFollowUser(following_user_id);
+        this.onFollowUser(only_following_user_id);
     }
 
     onCloseClick() {
@@ -95,12 +169,43 @@ class InitSearch extends Component {
     }
 
     componentDidMount() {
+        this.onGetMutuallyUser();
+        this.onGetFollowingUser();
+        this.showFollowedUser();
         this.onSearchUser(this.state.searchWord);
     }
 
     render() {
         return (
             <Fragment>
+                <div className="c-followed">
+                    <div className="c-followed__title">People you haven't followed yet</div>
+                    {this.state.followed_users.map((followed_user) =>
+                        <Fragment key={followed_user.id}>
+                            <div className="user-list__item" value={followed_user.id}>
+                                {followed_user.name}
+                                <button
+                                    id={followed_user.id}
+                                    className="btn c-icon__btn"
+                                    onClick={this.onShowUserClick}
+                                >
+                                    <ContactsIcon />
+                                </button>
+                            </div>
+                        </Fragment>
+                    )}
+                </div>
+                <div className="c-following">
+                    <div className="c-following__title">People who have not yet received your application</div>
+                    {this.state.following_users.map((following_user) =>
+                        <Fragment key={following_user.id}>
+                            <div className="user-list__item" value={following_user.id}>
+                                {following_user.name}
+                            </div>
+                        </Fragment>
+                    )}
+                </div>
+
                 <div className="c-search">
                     <div className='c-search__bar'>
                         <input
