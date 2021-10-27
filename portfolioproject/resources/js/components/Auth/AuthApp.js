@@ -33,13 +33,9 @@ export default class AuthApp extends Component {
       errors:[] //logout errors
     }
 
-    //binding to preserve the context of this
     this.registrationSubmit = this.registrationSubmit.bind(this);
     this.logoutClicked = this.logoutClicked.bind(this);
     this.loginClicked = this.loginClicked.bind(this);
-    this.receivedMessageExhibit = this.receivedMessageExhibit.bind(this);
-    this.sendMessageExhibit = this.sendMessageExhibit.bind(this);
-    // this.handleAddMessage = this.handleAddMessage.bind(this);
   }
 
   //callbacks will be used in the descendant component
@@ -86,37 +82,6 @@ export default class AuthApp extends Component {
       this.setState({ users: usersData.data })
     } catch(error) {
       errorCallback( error && error.response.data || {error: "Unprocessable entity"});
-    }
-  }
-
-  async receivedMessageExhibit(){
-    try {
-      const { data } = await axios(axiosHelper.getReceivedMessagesConfig());
-      this.setState({ receivedMessages: data });
-    } catch(error){
-      // console.log(error.response.data);
-      this.setState({ errors: [error.response.data.message]});
-    }
-  }
-
-  async sendMessageExhibit(){
-    try {
-      const { data } = await axios(axiosHelper.getSendMessagesConfig());
-      this.setState({ sendMessages: data });
-    } catch(error){
-      // console.log(error.response.data);
-      this.setState({ errors: [error.response.data.message]});
-    }
-  }
-
-  async sentMessageClicked(receiver_id, description){
-    try {
-      console.log("sentMessageClicked", receiver_id, description);
-      const { data } = await axios(axiosHelper.postSentMessagesConfig(receiver_id, description));
-      // console.log('sentMessage response.data ', data);
-    } catch(error){
-      console.log(error.response.data);
-      // this.setState({ errors: [error.response.data.message]});
     }
   }
 
