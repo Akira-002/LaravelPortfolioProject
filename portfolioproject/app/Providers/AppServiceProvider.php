@@ -17,5 +17,8 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         Passport::routes();
+        if (\App::environment('production')) {
+            \URL::forceScheme('https');
+        }
     }
 }
