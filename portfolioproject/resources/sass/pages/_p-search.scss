@@ -1,3 +1,64 @@
 .p-search{
+    margin-top: 64px;
+    margin-left: auto;
+    margin-right: auto;
 
+    &__followed {
+        width: 400px;
+        height: 400px;
+        text-align: center;
+        &__title {
+            font-weight: $FONT_WEIGHT_BOLD;
+            font-size: 16px;
+        }
+        &__item {
+            margin-top: 20px;
+            & + & { margin-top: 12px; }
+        }
+    }
+    &__following {
+        width: 250px;
+        height: 300px;
+        text-align: center;
+        &__title {
+            font-weight: $FONT_WEIGHT_BOLD;
+            font-size: 16px;
+        }
+        &__item {
+            margin-top: 20px;
+            & + & { margin-top: 12px; }
+        }
+    }
+    &__detail {
+        margin-top: 20px;
+        height: 40px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        &__user {
+            font-weight: $FONT_WEIGHT_BOLD;
+            font-size: 16px;
+            line-height: 40px;
+        }
+        &__btn {
+            margin-left: 20px;
+            & + & { margin-left: -10px;}
+        }
+    }
+    &__attention {
+        height: 26px;
+        text-align: center;
+    }
+    &__bar {
+        margin-top: 20px;
+        text-align: center;
+        &__input { width: 200px; }
+        &__btn {
+            margin-left: 40px;
+            margin-top: -4px;
+            height: 32px;
+            width: 100px;
+            font-size: 16px;
+        }
+    }
 }

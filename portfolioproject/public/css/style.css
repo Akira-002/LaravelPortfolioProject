@@ -11146,47 +11146,6 @@ a.text-dark:focus {
   margin-bottom: 10px;
 }
 
-.search {
-  display: flex;
-  justify-content: center;
-}
-
-.search__bar {
-  display: flex;
-  padding: 10px;
-  border: 1px solid lightgray;
-  border-radius: 999px;
-  background-color: #f0f2f5;
-}
-
-.search__bar > input {
-  border: none !important;
-  background-color: #f0f2f5;
-}
-
-.search__bar > input:focus {
-  outline-width: 0;
-}
-
-.search__bar > input::-moz-placeholder {
-  text-align: left;
-  font-size: 15px;
-}
-
-.search__bar > input:-ms-input-placeholder {
-  text-align: left;
-  font-size: 15px;
-}
-
-.search__bar > input::placeholder {
-  text-align: left;
-  font-size: 15px;
-}
-
-.search__bar > .MuiSvgIcon-root {
-  margin-right: 5px;
-}
-
 /** TYPOGRAPHY **/
 
 /** COLOR **/
@@ -12938,10 +12897,100 @@ input::-webkit-input-placeholder {
   }
 }
 
-.p-message {
+.css-i4bv87-MuiSvgIcon-root {
+  font-size: 30px !important;
+}
+
+.p-search {
   margin-top: 64px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.p-search__followed {
+  width: 400px;
+  height: 400px;
+  text-align: center;
+}
+
+.p-search__followed__title {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.p-search__followed__item {
+  margin-top: 20px;
+}
+
+.p-search__followed__item + .p-search__followed__item {
+  margin-top: 12px;
+}
+
+.p-search__following {
+  width: 250px;
+  height: 300px;
+  text-align: center;
+}
+
+.p-search__following__title {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.p-search__following__item {
+  margin-top: 20px;
+}
+
+.p-search__following__item + .p-search__following__item {
+  margin-top: 12px;
+}
+
+.p-search__detail {
+  margin-top: 20px;
+  height: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.p-search__detail__user {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 40px;
+}
+
+.p-search__detail__btn {
+  margin-left: 20px;
+}
+
+.p-search__detail__btn + .p-search__detail__btn {
+  margin-left: -10px;
+}
+
+.p-search__attention {
+  height: 26px;
+  text-align: center;
+}
+
+.p-search__bar {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.p-search__bar__input {
+  width: 200px;
+}
+
+.p-search__bar__btn {
+  margin-left: 40px;
+  margin-top: -4px;
+  height: 32px;
+  width: 100px;
+  font-size: 16px;
+}
+
+.p-message {
+  margin-top: 64px;
 }
 
 .p-message__selector {

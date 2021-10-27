@@ -7,9 +7,6 @@
 // 002 Original Authentification
 @import 'auth';
 
-// Search bar template
-@import 'search';
-
 
 @import './foundations/variables';
 @import './foundations/mixins';
@@ -17,6 +14,8 @@
 @import './foundations/base';
 
 @import './utils';
+@import './button';
+
 
 // 動かない
 // @import './layouts/l-container';

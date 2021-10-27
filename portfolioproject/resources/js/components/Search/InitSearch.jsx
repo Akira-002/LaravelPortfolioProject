@@ -20,6 +20,7 @@ class InitSearch extends Component {
             distributied_users: [],
             specific_user_data: [],
             error_message: [],
+            modalState: false
         }
         this.onGetMutuallyUser = this.onGetMutuallyUser.bind(this);
         this.onGetFollowingUser = this.onGetFollowingUser.bind(this);
@@ -142,6 +143,7 @@ class InitSearch extends Component {
         const user_id = event.currentTarget.id;
         event.preventDefault();
         this.onShowUser(user_id);
+        this.setState({modalState: true});
     }
 
     // follow user
@@ -162,6 +164,8 @@ class InitSearch extends Component {
     onCloseClick() {
         this.setState({specific_user_data: []});
         this.setState({error_message: []});
+        this.setState({modalState: false});
+
     }
 
     handleChange(e) {
@@ -178,35 +182,58 @@ class InitSearch extends Component {
     render() {
         return (
             <Fragment>
-                <div className="c-followed">
-                    <div className="c-followed__title">People you haven't followed yet</div>
-                    {this.state.followed_users.map((followed_user) =>
-                        <Fragment key={followed_user.id}>
-                            <div className="user-list__item" value={followed_user.id}>
-                                {followed_user.name}
-                                <button
-                                    id={followed_user.id}
-                                    className="btn c-icon__btn"
-                                    onClick={this.onShowUserClick}
-                                >
-                                    <ContactsIcon />
-                                </button>
-                            </div>
-                        </Fragment>
-                    )}
-                </div>
-                <div className="c-following">
-                    <div className="c-following__title">People who have not yet received your application</div>
-                    {this.state.following_users.map((following_user) =>
-                        <Fragment key={following_user.id}>
-                            <div className="user-list__item" value={following_user.id}>
-                                {following_user.name}
-                            </div>
-                        </Fragment>
-                    )}
-                </div>
-
                 <div className="p-search">
+                    <div className="u-flex u-flex--wrap u-flex--justify-center">
+                        <div className="p-search__followed">
+                            <div className="p-search__followed__title">あなたの承認を待っている人</div>
+                            {this.state.followed_users.map((followed_user) =>
+                                <Fragment key={followed_user.id}>
+                                    <div className="p-search__followed__item" value={followed_user.id}>
+                                        {followed_user.name}
+                                        <button
+                                            id={followed_user.id}
+                                            className="btn c-icon__btn"
+                                            onClick={this.onShowUserClick}
+                                        >
+                                            <ContactsIcon />
+                                        </button>
+                                    </div>
+                                </Fragment>
+                            )}
+                        </div>
+                        <div className="p-search__following">
+                            <div className="p-search__following__title">まだ承認してくれていない人</div>
+                            {this.state.following_users.map((following_user) =>
+                                <Fragment key={following_user.id}>
+                                    <div className="p-search__following__item" value={following_user.id}>
+                                        {following_user.name}
+                                    </div>
+                                </Fragment>
+                            )}
+                        </div>
+                    </div>
+                    <div className="p-search__detail">
+                        { this.state.modalState == true &&
+                            <Fragment>
+                                <div className="p-search__detail__user">{this.state.specific_user_data.name}</div>
+                                <button
+                                    id={this.state.specific_user_data.id}
+                                    className="btn c-icon__btn p-search__detail__btn"
+                                    onClick={this.onFollowUserClick}
+                                >
+                                    <EmojiPeopleIcon />
+                                </button>
+                                <button
+                                    className="btn c-icon__btn p-search__detail__btn"
+                                >
+                                    <CloseIcon onClick={this.onCloseClick}/>
+                                    </button>
+                            </Fragment>
+                        }
+                    </div>
+                    <div className="p-search__attention">
+                        {this.state.error_message && <p>{this.state.error_message}</p>}
+                    </div>
                     <div className='p-search__bar'>
                         <input
                             className="p-search__bar__input"
@@ -216,7 +243,7 @@ class InitSearch extends Component {
                             onChange={this.handleChange}
                         />
                         <button
-                            className="btn btn-secondary"
+                            className="btn btn-secondary p-search__bar__btn"
                             onClick={this.onSearchUserClick}
                         >
                             <SearchIcon />
@@ -224,25 +251,6 @@ class InitSearch extends Component {
                         </button>
                     </div>
 
-                    {this.state.error_message &&
-                        <a>
-                            {this.state.error_message}
-                        </a>
-                    }
-
-                    {this.state.specific_user_data &&
-                        <div className="p-search__detail">
-                            <div>{this.state.specific_user_data.name}</div>
-                            <button
-                                id={this.state.specific_user_data.id}
-                                className="btn c-icon__btn"
-                                onClick={this.onFollowUserClick}
-                            >
-                                <EmojiPeopleIcon />
-                            </button>
-                            <button><CloseIcon onClick={this.onCloseClick}/></button>
-                        </div>
-                    }
 
                     <div className="p-search__list">
                         <div className="user-list">

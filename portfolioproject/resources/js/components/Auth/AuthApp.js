@@ -12,8 +12,7 @@ import LoginPage from './screens/Login';
 import RegisterPage from './screens/Register';
 import DashboardPage from './screens/Dashboard';
 import ErrorsAlert from '../helpers/ErrorsAlert';
-
-
+import InitSearch from '../Search/InitSearch';
 
 // ../containers
 // import Portfolioproject from '../Message/Portfolioproject';
@@ -95,9 +94,11 @@ export default class AuthApp extends Component {
             <Route exact path="/login" render={(props) => (<LoginPage onLogin={this.loginClicked} {...props} />)} />
             <Route exact path="/register" render={(props) => (<RegisterPage onRegister={this.registrationSubmit} {...props}/>)} />
             <Route exact path="/dashboard" render={() => (<DashboardPage />)} />
+            <Route exact path="/search" render={() => (<InitSearch/>)} />
             <Route render={() => <p>not found.</p>} />
           </Switch>
       </Router>
     );
   }
 }
+
