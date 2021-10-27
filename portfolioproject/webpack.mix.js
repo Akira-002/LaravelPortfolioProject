@@ -14,12 +14,16 @@ const writeFilePlugin = require('write-file-webpack-plugin');
  */
 
 mix.react('resources/js/app.js', 'public/js')
-    .sourceMaps()
     .sass('resources/sass/style.scss', 'public/css')
-    .webpackConfig(webpack => {
-        return {
-            plugins: [
-                new writeFilePlugin()
-            ]
-        };
+    .sourceMaps()
+    // .version()
+    .webpackConfig({
+
+        plugins: [
+            new writeFilePlugin()
+        ]
     });
+
+if (mix.inProduction()) {
+    mix.version();
+}

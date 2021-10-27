@@ -206,10 +206,10 @@ class InitSearch extends Component {
                     )}
                 </div>
 
-                <div className="c-search">
-                    <div className='c-search__bar'>
+                <div className="p-search">
+                    <div className='p-search__bar'>
                         <input
-                            className="c-search__bar__input"
+                            className="p-search__bar__input"
                             placeholder="Search"
                             name="searchWord"
                             value={this.state.searchWord || ""}
@@ -231,7 +231,7 @@ class InitSearch extends Component {
                     }
 
                     {this.state.specific_user_data &&
-                        <div className="c-search__detail">
+                        <div className="p-search__detail">
                             <div>{this.state.specific_user_data.name}</div>
                             <button
                                 id={this.state.specific_user_data.id}
@@ -244,7 +244,7 @@ class InitSearch extends Component {
                         </div>
                     }
 
-                    <div className="c-search__list">
+                    <div className="p-search__list">
                         <div className="user-list">
                             {this.state.users.map((user) =>
                                 <Fragment key={user.id}>

@@ -1,6 +1,6 @@
 /** TYPOGRAPHY **/
-// $FONT_FAMILY: 'Noto Sans JP', "Hiragino Sans", "ヒラギノ角ゴシック", "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
-// $FONT_FAMILY_CURSIVE: 'Zapfino', $FONT_FAMILY;
+$FONT_FAMILY: 'Noto Sans JP', "Hiragino Sans", "ヒラギノ角ゴシック", "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+$FONT_FAMILY_CURSIVE: 'Zapfino', $FONT_FAMILY;
 
 $FONT_WEIGHT_REGULAR: 400;
 $FONT_WEIGHT_MEDIUM: 500;
@@ -10,10 +10,10 @@ $LINE_HEIGHT_SENTENCE: 1.7;
 
 /** COLOR **/
 $COLOR_GRAY_DEFAULT: #1A1A1A;
-$COLOR_PRIMARY: #2BADD6;
-$COLOR_SECONDARY: #816326;
+$COLOR_PRIMARY: #4ecaff87;
+$COLOR_SECONDARY: #2264a1;
 $COLOR_LINK: #445958FF;
-$COLOR_BACKGROUND: #FFFAED;
+$COLOR_BACKGROUND: #c3e3f987;
 
 $ZINDEX_STICKY: 10;
 $ZINDEX_DRAWER: 100;

@@ -51,7 +51,7 @@ class Message extends Component {
             // this.setState({ received_meessages: data });
             this.setState((state) => {
                 state.received_messages = data;
-            }, () => {console.log('received_meessages', this.state.received_messages)});
+            }, () => {console.log('received_messages', this.state.received_messages)});
 
         } catch(error) {
             console.log(error.response.data);
@@ -127,8 +127,8 @@ class Message extends Component {
         // console.log('MessagePages props', this.props, this.state);
         return (
             <Fragment>
-                <div className="sentListPane">
-                    <div>
+                <section className="p-message">
+                    <div className="p-message__selector">
                         <FormControl variant="outlined" className="userSelect">
                             <InputLabel id="demo-simple-select-outlined-label">Who is it?</InputLabel>
                             <Select
@@ -146,59 +146,63 @@ class Message extends Component {
                             </Select>
                         </FormControl>
                     </div>
-                    { this.state.blankSelectAlart == true && <div>Who is the person?</div> }
-                    <div>
-                        <TextField
-                            id="standard-basic"
-                            label="Description"
-                            value={this.state.description || ""}
-                            onChange={this.handleChangeDescription}
-                        />
-                    </div>
-                    { this.state.blankDescriptionAlart == true && <div>Please write Gratitude</div> }
-                    <div>
-                        <button
-                            className="btn btn-secondary"
-                            onClick={this.clickDescriptionHandler}
-                        >
-                            Sent message
-                        </button>
-                    </div>
-                </div>
-                { this.state.modalState == true &&
-                    <div>
-                        <div>{this.state.selectedUserId}</div>
-                        <div>{this.state.description}</div>
-                        <button
-                            className="btn btn-secondary"
-                            onClick={this.onSentMessageClick}
-                        >
-                            Submit
-                        </button>
-                    </div>
-                }
-                <div className="c-message">
-                    <div className="c-message__list">
-                        <div className="c-message__list__title">Recieved Messages</div>
-                        <div className="c-message__list__item">
-                            {this.state.received_messages.map((received_message) =>
-                                <div key={received_message.id}>
-                                    <span className="listMessage">{received_message.description}</span>
+                    <div className="p-message__text">
+                        <div>
+                            <TextField
+                                id="standard-basic"
+                                className="p-message__text__field"
+                                label="Description"
+                                value={this.state.description || ""}
+                                onChange={this.handleChangeDescription}
+                            />
+                            <button
+                                className="btn btn-secondary p-message__text__btn"
+                                onClick={this.clickDescriptionHandler}
+                            >
+                                Sent message
+                            </button>
+                        </div>
+                        <div className="p-message__text__attention">
+                            { this.state.blankSelectAlart == true && <div>Who is the person?</div> }
+                            { this.state.blankDescriptionAlart == true && <div>Please write Gratitude</div> }
+                        </div>
+                        { this.state.modalState == true &&
+                            <div>
+                                <div className="p-message__text__modal">
+                                    <div>{this.state.description}</div>
+                                    <button
+                                        className="btn btn-secondary p-message__text__modal__btn"
+                                        onClick={this.onSentMessageClick}
+                                    >
+                                        Submit
+                                    </button>
                                 </div>
-                            )}
+                            </div>
+                        }
+                    </div>
+                    <div className="p-message__container">
+                        <div className="u-flex u-flex--wrap">
+                            <div className="p-message__list">
+                                <div className="p-message__list__title">Recieved Messages</div>
+                                <div className="p-message__list__item">
+                                    {this.state.received_messages.map((received_message) =>
+                                        <div key={received_message.id}>
+                                            <span className="listMessage">{received_message.description}</span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                            <div className="p-message__list">
+                                <div className="p-message__list__title">Send Messages</div>
+                                {this.state.send_messages.map((send_message) =>
+                                    <div key={send_message.id}>
+                                        <p className="p-message__list__item">{send_message.description}</p>
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
-                    <div className="c-message__list">
-                        <div className="c-message__list__title">Send Messages</div>
-                        <div className="c-message__list__item">
-                            {this.state.send_messages.map((send_message) =>
-                                <div key={send_message.id}>
-                                    <span className="listMessage">{send_message.description}</span>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </div>
+                </section>
             </Fragment>
         );
     }

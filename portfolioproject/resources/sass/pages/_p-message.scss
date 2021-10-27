@@ -1,0 +1,51 @@
+.p-message{
+    margin-top: 64px;
+    margin-left: auto;
+    margin-right: auto;
+
+    &__selector {
+        text-align: center;
+    }
+    &__text {
+        margin-top: 48px;
+        margin-left: 120px;
+        text-align: center;
+        height: 188px;
+        &__field {
+            width: 400px;
+        }
+        &__btn {
+            margin-left: 40px;
+            height: 40px;
+        }
+        &__attention {
+            margin-top: 12px;
+            margin-left: -120px;
+            color: $COLOR_SECONDARY;
+        }
+        &__modal {
+            margin-top: 48px;
+            margin-left: -120px;
+            color: $COLOR_SECONDARY;
+            &__btn { margin-top: 20px;}
+        }
+    }
+    &__container {
+        margin-left: 20%;
+        text-align: center;
+    }
+    &__list {
+        & + & { margin-left: 40px;}
+        width: 400px;
+        height: 600px;
+        white-space: normal;
+        &__title {
+            font-weight: $FONT_WEIGHT_BOLD;
+            font-size: 16px;
+        }
+        &__item {
+            margin-top: 20px;
+            & + & { margin-top: 12px;}
+        }
+    }
+}

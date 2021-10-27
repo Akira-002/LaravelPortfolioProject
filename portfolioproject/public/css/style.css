@@ -1,9 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
-/** TYPOGRAPHY **/
-
-/** COLOR **/
-
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -11367,7 +11363,7 @@ html {
 
 body {
   color: #1A1A1A;
-  background-color: #FFFAED;
+  background-color: #c3e3f987;
   margin: auto;
   font-size: 1.4rem;
   -webkit-font-smoothing: antialiased;
@@ -12942,53 +12938,73 @@ input::-webkit-input-placeholder {
   }
 }
 
-@media screen and (min-width: 1160px) {
-  .l-container {
-    width: 1160px;
-    margin-right: auto;
-    margin-left: auto;
-  }
+.p-message {
+  margin-top: 64px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-@media screen and (max-width: 1159px) {
-  .l-container {
-    width: 100%;
-    padding-left: 16px;
-    padding-right: 16px;
-    max-width: 768px;
-    box-sizing: border-box;
-    margin-right: auto;
-    margin-left: auto;
-  }
+.p-message__selector {
+  text-align: center;
 }
 
-.l-section {
-  margin-top: 72px;
+.p-message__text {
+  margin-top: 48px;
+  margin-left: 120px;
+  text-align: center;
+  height: 188px;
 }
 
-@media screen and (max-width: 1159px) {
-  .l-section {
-    margin-top: 64px;
-  }
+.p-message__text__field {
+  width: 400px;
 }
 
-.l-section--md {
-  margin-top: 56px;
+.p-message__text__btn {
+  margin-left: 40px;
+  height: 40px;
 }
 
-@media screen and (max-width: 1159px) {
-  .l-section--md {
-    margin-top: 40px;
-  }
+.p-message__text__attention {
+  margin-top: 12px;
+  margin-left: -120px;
+  color: #2264a1;
 }
 
-.l-section--sm {
-  margin-top: 40px;
+.p-message__text__modal {
+  margin-top: 48px;
+  margin-left: -120px;
+  color: #2264a1;
 }
 
-@media screen and (max-width: 1159px) {
-  .l-section--sm {
-    margin-top: 32px;
-  }
+.p-message__text__modal__btn {
+  margin-top: 20px;
+}
+
+.p-message__container {
+  margin-left: 20%;
+  text-align: center;
+}
+
+.p-message__list {
+  width: 400px;
+  height: 600px;
+  white-space: normal;
+}
+
+.p-message__list + .p-message__list {
+  margin-left: 40px;
+}
+
+.p-message__list__title {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.p-message__list__item {
+  margin-top: 20px;
+}
+
+.p-message__list__item + .p-message__list__item {
+  margin-top: 12px;
 }
 
