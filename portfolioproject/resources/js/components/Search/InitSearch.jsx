@@ -110,23 +110,27 @@ class InitSearch extends Component {
         try {
           const response = await axios(axiosHelper.getUsers(search_word));
           this.setState({users: response.data})
-          this.calculateUsersSituation();
+          const folowing_response = await axios(axiosHelper.getFollowingUserConfig());
+          const clean_array = folowing_response.data
+          const caluculated_array = clean_array.flat();
+          this.calculateUsersSituation(caluculated_array);
         } catch(error){
           console.log(error.response.data);
         }
     }
-    calculateUsersSituation() {
+    calculateUsersSituation(caluculated_array) {
         this.setState(state => {
-            const only_following_user_id = this.state.only_following_user_id;
             const calculating_users = state.users;
-            if(only_following_user_id !== [] && calculating_users.findIndex(({id}) => id === only_following_user_id[0]) !== -1) {
-                for(var i = 0; i < only_following_user_id.length; i++){
-                    const targetIndex = calculating_users.findIndex(({id}) => id === only_following_user_id[i]);
+            const caluculated_array_id = caluculated_array.map((object) => object.id);
+            if(caluculated_array_id !== [] && calculating_users.findIndex(({id}) => id === caluculated_array_id[0]) !== -1) {
+                for(var i = 0; i < caluculated_array_id.length; i++){
+                    const targetIndex = calculating_users.findIndex(({id}) => id === caluculated_array_id[i]);
                     calculating_users.splice(targetIndex, 1);
                 }
                 return state.distributied_users = calculating_users;
             }
         }, () => {});
+
     }
     onSearchUserClick(e) {
         const search_word = this.state.searchWord
@@ -188,9 +192,9 @@ class InitSearch extends Component {
     render() {
             const indexOfLastUsers = this.state.currentPage * this.state.usersPerPage;
             const indexOfFirstUsers = indexOfLastUsers - this.state.usersPerPage;
-            const currentUsers = this.state.users.slice(indexOfFirstUsers, indexOfLastUsers);
+            const currentUsers = this.state.distributied_users.slice(indexOfFirstUsers, indexOfLastUsers);
             const pageNumbers = [];
-            for(let i = 1; i <= Math.ceil(this.state.users.length / this.state.usersPerPage); i++) { pageNumbers.push(i); }
+            for(let i = 1; i <= Math.ceil(this.state.distributied_users.length / this.state.usersPerPage); i++) { pageNumbers.push(i); }
 
         return (
             <Fragment>
