@@ -139,16 +139,16 @@ class Message extends Component {
                         </FormControl>
                     </div>
                     <div className="p-message__text">
-                        <div>
+                        <div className="p-message__text__block">
                             <TextField
                                 id="standard-basic"
-                                className="p-message__text__field"
+                                className="p-message__text__block__field"
                                 label="Description"
                                 value={this.state.description || ""}
                                 onChange={this.handleChangeDescription}
                             />
                             <button
-                                className="btn btn-secondary p-message__text__btn"
+                                className="btn btn-secondary p-message__text__block__btn"
                                 onClick={this.clickDescriptionHandler}
                             >
                                 Sent message
@@ -173,25 +173,23 @@ class Message extends Component {
                         }
                     </div>
                     <div className="p-message__container">
-                        <div className="u-flex u-flex--wrap">
-                            <div className="p-message__list">
-                                <div className="p-message__list__title">Recieved Messages</div>
-                                <div className="p-message__list__item">
-                                    {this.state.received_messages.map((received_message) =>
-                                        <div key={received_message.id}>
-                                            <span className="listMessage">{received_message.description}</span>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                            <div className="p-message__list">
-                                <div className="p-message__list__title">Send Messages</div>
-                                {this.state.send_messages.map((send_message) =>
-                                    <div key={send_message.id}>
-                                        <p className="p-message__list__item">{send_message.description}</p>
+                        <div className="p-message__list">
+                            <div className="p-message__list__title">Recieved Messages</div>
+                            <div className="p-message__list__item">
+                                {this.state.received_messages.map((received_message) =>
+                                    <div key={received_message.id}>
+                                        <span className="listMessage">{received_message.description}</span>
                                     </div>
                                 )}
                             </div>
+                        </div>
+                        <div className="p-message__list">
+                            <div className="p-message__list__title">Send Messages</div>
+                            {this.state.send_messages.map((send_message) =>
+                                <div key={send_message.id}>
+                                    <p className="p-message__list__item">{send_message.description}</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </section>

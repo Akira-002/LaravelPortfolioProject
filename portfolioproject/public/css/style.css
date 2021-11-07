@@ -12907,9 +12907,17 @@ input::-webkit-input-placeholder {
   margin-right: auto;
 }
 
+.p-search__container {
+  margin-top: -28px;
+  margin-left: -32px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .p-search__followed {
-  width: 400px;
-  height: 400px;
+  margin-top: 28px;
+  margin-left: 32px;
   text-align: center;
 }
 
@@ -12919,7 +12927,8 @@ input::-webkit-input-placeholder {
 }
 
 .p-search__followed__item {
-  margin-top: 20px;
+  width: 250px;
+  margin-top: 16px;
 }
 
 .p-search__followed__item + .p-search__followed__item {
@@ -12927,8 +12936,8 @@ input::-webkit-input-placeholder {
 }
 
 .p-search__following {
-  width: 250px;
-  height: 300px;
+  margin-top: 28px;
+  margin-left: 32px;
   text-align: center;
 }
 
@@ -12938,7 +12947,8 @@ input::-webkit-input-placeholder {
 }
 
 .p-search__following__item {
-  margin-top: 20px;
+  margin-top: 16px;
+  width: 250px;
 }
 
 .p-search__following__item + .p-search__following__item {
@@ -12946,7 +12956,6 @@ input::-webkit-input-placeholder {
 }
 
 .p-search__detail {
-  margin-top: 20px;
   height: 40px;
   display: flex;
   flex-wrap: wrap;
@@ -12973,7 +12982,8 @@ input::-webkit-input-placeholder {
 }
 
 .p-search__bar {
-  margin-top: 20px;
+  margin-top: 28px;
+  margin-left: 32px;
   text-align: center;
 }
 
@@ -12982,15 +12992,33 @@ input::-webkit-input-placeholder {
 }
 
 .p-search__bar__btn {
-  margin-left: 40px;
+  margin-left: 24px;
   margin-top: -4px;
   height: 32px;
   width: 100px;
   font-size: 16px;
 }
 
+.p-search__list {
+  margin-top: 28px;
+  margin-left: 32px;
+}
+
+.p-search__list__item {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.p-search__list__pagination {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+}
+
 .p-message {
   margin-top: 64px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .p-message__selector {
@@ -12999,23 +13027,38 @@ input::-webkit-input-placeholder {
 
 .p-message__text {
   margin-top: 48px;
-  margin-left: 120px;
-  text-align: center;
   height: 188px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.p-message__text__field {
+.p-message__text__block {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: -16px;
+  margin-left: -40px;
+}
+
+.p-message__text__block__field {
+  margin-top: 16px !important;
+  margin-left: 40px !important;
   width: 400px;
 }
 
-.p-message__text__btn {
+.p-message__text__block__btn {
+  margin-top: 16px;
   margin-left: 40px;
   height: 40px;
 }
 
 .p-message__text__attention {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 12px;
-  margin-left: -120px;
+  text-align: center;
   color: #2264a1;
 }
 
@@ -13030,27 +13073,30 @@ input::-webkit-input-placeholder {
 }
 
 .p-message__container {
-  margin-left: 20%;
-  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .p-message__list {
+  text-align: center;
+  margin-top: -20px;
+  margin-left: -40px;
   width: 400px;
-  height: 600px;
   white-space: normal;
 }
 
-.p-message__list + .p-message__list {
-  margin-left: 40px;
-}
-
 .p-message__list__title {
+  margin-top: 20px;
+  margin-left: 40px;
+  text-align: center;
   font-weight: 700;
   font-size: 16px;
 }
 
 .p-message__list__item {
   margin-top: 20px;
+  margin-left: 40px;
 }
 
 .p-message__list__item + .p-message__list__item {

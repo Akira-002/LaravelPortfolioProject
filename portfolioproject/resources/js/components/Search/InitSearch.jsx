@@ -3,8 +3,9 @@ import SearchIcon from '@material-ui/icons/Search';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import CloseIcon from '@mui/icons-material/Close';
+// import Pagination from '@material-ui/lab/Pagination';
+import Pagination from '@mui/material/Pagination';
 import * as axiosHelper from '../helpers/axiosHelper';
-
 
 class InitSearch extends Component {
     constructor(props){
@@ -20,7 +21,11 @@ class InitSearch extends Component {
             distributied_users: [],
             specific_user_data: [],
             error_message: [],
-            modalState: false
+            modalState: false,
+            page: 1,
+            currentPage: 1,
+            totalPage: 0,
+            usersPerPage: 10
         }
         this.onGetMutuallyUser = this.onGetMutuallyUser.bind(this);
         this.onGetFollowingUser = this.onGetFollowingUser.bind(this);
@@ -32,6 +37,7 @@ class InitSearch extends Component {
         this.onShowUserClick = this.onShowUserClick.bind(this);
         this.onFollowUserClick = this.onFollowUserClick.bind(this);
         this.onCloseClick = this.onCloseClick.bind(this);
+        this.paginationChangeHandler = this.paginationChangeHandler.bind(this);
     }
 
     async onGetMutuallyUser() {
@@ -153,6 +159,7 @@ class InitSearch extends Component {
         const only_following_user_id = this.state.specific_user_data.id;
         event.preventDefault();
         this.onFollowUser(only_following_user_id);
+        this.setState({modalState: false});
     }
     onCloseClick() {
         this.setState({specific_user_data: []});
@@ -169,13 +176,50 @@ class InitSearch extends Component {
         this.onSearchUser(this.state.searchWord);
     }
 
+    paginationChangeHandler(event, value) {
+        this.setState((state) => {
+            state.page = value;
+        },
+        () => {
+            this.setState({currentPage: this.state.page});
+        });
+    }
+
     render() {
+            const indexOfLastUsers = this.state.currentPage * this.state.usersPerPage;
+            const indexOfFirstUsers = indexOfLastUsers - this.state.usersPerPage;
+            const currentUsers = this.state.users.slice(indexOfFirstUsers, indexOfLastUsers);
+            const pageNumbers = [];
+            for(let i = 1; i <= Math.ceil(this.state.users.length / this.state.usersPerPage); i++) { pageNumbers.push(i); }
+
         return (
             <Fragment>
                 <div className="p-search">
-                    <div className="u-flex u-flex--wrap u-flex--justify-center">
+                    <div className="p-search__detail">
+                        { this.state.modalState == true &&
+                            <Fragment>
+                                <div className="p-search__detail__user">{this.state.specific_user_data.name}</div>
+                                <button
+                                    id={this.state.specific_user_data.id}
+                                    className="btn c-icon__btn p-search__detail__btn"
+                                    onClick={this.onFollowUserClick}
+                                >
+                                    <EmojiPeopleIcon />
+                                </button>
+                                <button
+                                    className="btn c-icon__btn p-search__detail__btn"
+                                >
+                                    <CloseIcon onClick={this.onCloseClick}/>
+                                    </button>
+                            </Fragment>
+                        }
+                    </div>
+                    <div className="p-search__attention">
+                        {this.state.error_message && <p>{this.state.error_message}</p>}
+                    </div>
+                    <div className="p-search__container">
                         <div className="p-search__followed">
-                            <div className="p-search__followed__title">あなたの承認を待っている人</div>
+                                <div className="p-search__followed__title">あなたの承認を待っている人</div>
                             {this.state.followed_users.map((followed_user) =>
                                 <Fragment key={followed_user.id}>
                                     <div className="p-search__followed__item" value={followed_user.id}>
@@ -201,61 +245,49 @@ class InitSearch extends Component {
                                 </Fragment>
                             )}
                         </div>
-                    </div>
-                    <div className="p-search__detail">
-                        { this.state.modalState == true &&
-                            <Fragment>
-                                <div className="p-search__detail__user">{this.state.specific_user_data.name}</div>
+                        <div className="p-search__block">
+                            <div className='p-search__bar'>
+                                <input
+                                    className="p-search__bar__input"
+                                    placeholder="Search"
+                                    name="searchWord"
+                                    value={this.state.searchWord || ""}
+                                    onChange={this.handleChange}
+                                />
                                 <button
-                                    id={this.state.specific_user_data.id}
-                                    className="btn c-icon__btn p-search__detail__btn"
-                                    onClick={this.onFollowUserClick}
+                                    className="btn btn-secondary p-search__bar__btn"
+                                    onClick={this.onSearchUserClick}
                                 >
-                                    <EmojiPeopleIcon />
+                                    <SearchIcon />
+                                    Search
                                 </button>
-                                <button
-                                    className="btn c-icon__btn p-search__detail__btn"
-                                >
-                                    <CloseIcon onClick={this.onCloseClick}/>
-                                    </button>
-                            </Fragment>
-                        }
-                    </div>
-                    <div className="p-search__attention">
-                        {this.state.error_message && <p>{this.state.error_message}</p>}
-                    </div>
-                    <div className='p-search__bar'>
-                        <input
-                            className="p-search__bar__input"
-                            placeholder="Search"
-                            name="searchWord"
-                            value={this.state.searchWord || ""}
-                            onChange={this.handleChange}
-                        />
-                        <button
-                            className="btn btn-secondary p-search__bar__btn"
-                            onClick={this.onSearchUserClick}
-                        >
-                            <SearchIcon />
-                            Search
-                        </button>
-                    </div>
-                    <div className="p-search__list">
-                        <div className="user-list">
-                            {this.state.users.map((user) =>
-                                <Fragment key={user.id}>
-                                    <div className="user-list__item" value={user.id}>
-                                        {user.name}
-                                        <button
-                                            id={user.id}
-                                            className="btn c-icon__btn"
-                                            onClick={this.onShowUserClick}
-                                        >
-                                            <ContactsIcon />
-                                        </button>
-                                    </div>
-                                </Fragment>
-                            )}
+                            </div>
+                            <div className="p-search__list">
+                                {currentUsers.map((user) =>
+                                    <Fragment key={user.id}>
+                                        <div className="p-search__list__item" value={user.id}>
+                                            {user.name}
+                                            <button
+                                                id={user.id}
+                                                className="btn c-icon__btn"
+                                                onClick={this.onShowUserClick}
+                                            >
+                                                <ContactsIcon />
+                                            </button>
+                                        </div>
+                                    </Fragment>
+                                )}
+                                { this.state.users.length > 10
+                                    && <Pagination
+                                        className="p-search__list__pagination"
+                                        count={pageNumbers.length}size="small"
+                                        hidePrevButton
+                                        hideNextButton
+                                        page={this.state.page}
+                                        onChange={this.paginationChangeHandler}
+                                    />
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
