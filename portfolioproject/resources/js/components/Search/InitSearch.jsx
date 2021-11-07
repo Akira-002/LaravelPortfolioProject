@@ -109,18 +109,19 @@ class InitSearch extends Component {
     async onSearchUser(search_word) {
         try {
           const response = await axios(axiosHelper.getUsers(search_word));
-          this.setState({users: response.data})
+          const search_user = response.data;
+        //   this.setState({users: response.data})
           const folowing_response = await axios(axiosHelper.getFollowingUserConfig());
           const clean_array = folowing_response.data
           const caluculated_array = clean_array.flat();
-          this.calculateUsersSituation(caluculated_array);
+          this.calculateUsersSituation(caluculated_array, search_user);
         } catch(error){
           console.log(error.response.data);
         }
     }
-    calculateUsersSituation(caluculated_array) {
+    calculateUsersSituation(caluculated_array, search_user) {
         this.setState(state => {
-            const calculating_users = state.users;
+            const calculating_users = search_user;
             const caluculated_array_id = caluculated_array.map((object) => object.id);
             if(caluculated_array_id !== [] && calculating_users.findIndex(({id}) => id === caluculated_array_id[0]) !== -1) {
                 for(var i = 0; i < caluculated_array_id.length; i++){
@@ -128,6 +129,8 @@ class InitSearch extends Component {
                     calculating_users.splice(targetIndex, 1);
                 }
                 return state.distributied_users = calculating_users;
+            } else {
+                return state.distributied_users = search_user;
             }
         }, () => {});
 
@@ -281,7 +284,7 @@ class InitSearch extends Component {
                                         </div>
                                     </Fragment>
                                 )}
-                                { this.state.users.length > 10
+                                { this.state.distributied_users.length > 10
                                     && <Pagination
                                         className="p-search__list__pagination"
                                         count={pageNumbers.length}size="small"
