@@ -35,7 +35,8 @@ class Message extends Component {
             const caluculated_array = clean_array.flat();
             this.setState((state) => {
                 state.mutually_follow_users = caluculated_array;
-            }, () => {console.log('mutually_follow_users', this.state.mutually_follow_users)});
+            }, () => {});
+            console.log('mutually_follow_users', this.state.mutually_follow_users);
         } catch(error){
             console.log(error.response.data);
         }
@@ -45,8 +46,8 @@ class Message extends Component {
             const { data } = await axios(axiosHelper.getReceivedMessagesConfig());
             this.setState((state) => {
                 state.received_messages = data;
-            }, () => {console.log('received_messages', this.state.received_messages)});
-
+            }, () => {});
+            console.log('received_messages', this.state.received_messages)
         } catch(error) {
             console.log(error.response.data);
         }
@@ -57,8 +58,8 @@ class Message extends Component {
             const { data } = await axios(axiosHelper.getSendMessagesConfig());
             this.setState((state) => {
                 state.send_messages = data;
-            }, () => {console.log('send_messages', this.state.send_messages)});
-
+            }, () => {});
+            console.log('send_messages', this.state.send_messages)
         } catch(error) {
             console.log(error.response.data);
         }
