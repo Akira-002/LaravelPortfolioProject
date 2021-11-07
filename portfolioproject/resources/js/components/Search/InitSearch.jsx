@@ -136,6 +136,8 @@ class InitSearch extends Component {
 
     }
     onSearchUserClick(e) {
+        this.setState({page: 1})
+        this.setState({currentPage: 1});
         const search_word = this.state.searchWord
         e.preventDefault();
         this.onSearchUser(search_word);
