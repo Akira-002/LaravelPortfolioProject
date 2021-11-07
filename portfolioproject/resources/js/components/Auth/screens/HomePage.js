@@ -2,12 +2,7 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 const HomePage = (props) => {
-
-    // console.log('HomePage state', props);
-
-    //If the user is loggedIn provide a welcome alert
     let userFeedback;
-
     if(props.isLoggedIn){
       userFeedback = (
         <div className="alert alert-success" role="alert">
@@ -15,7 +10,7 @@ const HomePage = (props) => {
             <p>You have a token to "track your session"</p>
         </div>
       )
-    } else {//if not invite him to do so
+    } else {
       userFeedback = (
         <div className="alert alert-warning" role="alert">
             <h3>You are not currently logged in</h3>

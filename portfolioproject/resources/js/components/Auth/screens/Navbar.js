@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
-//withRouter gives us the ability to navigate
-//even if the component is not within a Route
 
 class Navbar extends Component {
   constructor(props){
@@ -16,16 +14,12 @@ class Navbar extends Component {
   }
 
   logoutBtnClicked(){
-    //Perform Logout and then reach the homeepage anyway (success, fail)
     this.props.logoutClicked(this.backToTheHomePage,this.backToTheHomePage);
   }
 
   render() {
-    //SHOW LINKS based on userLogin status
     let authLinks;
-
     if (!this.props.isLoggedIn){
-      // NOT LOGGED IN
       authLinks = (
         <Fragment>
           <NavLink className="nav-item nav-link" to="/register">Register</NavLink>
@@ -33,7 +27,6 @@ class Navbar extends Component {
         </Fragment>
       )
     } else {
-      // LOGGED IN
       authLinks = (
         <Fragment>
           <NavLink className="nav-item nav-link" to="/dashboard">Dashboard</NavLink>

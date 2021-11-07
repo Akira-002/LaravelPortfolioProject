@@ -1,15 +1,10 @@
 import React, { Component, Fragment } from 'react';
-
-// material-ui
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
-// import Modal from '@material-ui/core/Modal';
-
 import * as axiosHelper from '../helpers/axiosHelper';
-
 
 class Message extends Component {
     constructor(props){
@@ -48,7 +43,6 @@ class Message extends Component {
     async receivedMessageExhibit(){
         try {
             const { data } = await axios(axiosHelper.getReceivedMessagesConfig());
-            // this.setState({ received_meessages: data });
             this.setState((state) => {
                 state.received_messages = data;
             }, () => {console.log('received_messages', this.state.received_messages)});
@@ -61,7 +55,6 @@ class Message extends Component {
     async sendMessageExhibit(){
         try {
             const { data } = await axios(axiosHelper.getSendMessagesConfig());
-            // this.setState({ send_messages: data });
             this.setState((state) => {
                 state.send_messages = data;
             }, () => {console.log('send_messages', this.state.send_messages)});
@@ -124,7 +117,6 @@ class Message extends Component {
     }
 
     render() {
-        // console.log('MessagePages props', this.props, this.state);
         return (
             <Fragment>
                 <section className="p-message">

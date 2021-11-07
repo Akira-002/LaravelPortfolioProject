@@ -54,17 +54,15 @@ class InitSearch extends Component {
             const clean_array = response.data
             // TODO: 一般化して繰り返さない
             const caluculated_array = clean_array.flat();
-            // const caluculated_array_id = caluculated_array.map((object) => object.id);
-            // console.log('following_user_id', caluculated_array_id);
-            // TODO: indexOfを使わない
             this.setState((state) => {
-                // console.log('mutually_follow_users_id', state.mutually_follow_users_id);
                 const mutually_follow_users_id = state.mutually_follow_users_id
                 if(mutually_follow_users_id !== [] && caluculated_array.findIndex(({id}) => id === mutually_follow_users_id[0]) !== -1) {
                     for(var i = 0; i < mutually_follow_users_id.length; i++){
                         const targetIndex = caluculated_array.findIndex(({id}) => id === mutually_follow_users_id[i]);
                         caluculated_array.splice(targetIndex, 1);
                     }
+                    return state.following_users = caluculated_array;
+                } else {
                     return state.following_users = caluculated_array;
                 }
             }, () => {});
@@ -83,15 +81,15 @@ class InitSearch extends Component {
             const caluculated_array = clean_array.flat();
             const caluculated_array_id = caluculated_array.map((object) => object.id);
             console.log('followed_users', caluculated_array_id);
-            // TODO: indexOfを使わない
             this.setState((state) => {
-                // console.log('mutually_follow_users_id', this.state.mutually_follow_users_id);
                 const mutually_follow_users_id = state.mutually_follow_users_id
                 if(mutually_follow_users_id !== [] && caluculated_array.findIndex(({id}) => id === mutually_follow_users_id[0]) !== -1) {
                     for(var i = 0; i < mutually_follow_users_id.length; i++){
                         const targetIndex = caluculated_array.findIndex(({id}) => id === mutually_follow_users_id[i]);
                         caluculated_array.splice(targetIndex, 1);
                     }
+                    return state.followed_users = caluculated_array;
+                } else {
                     return state.followed_users = caluculated_array;
                 }
             }, () => {});
@@ -129,8 +127,6 @@ class InitSearch extends Component {
         e.preventDefault();
         this.onSearchUser(search_word);
     }
-
-    // about show specific user
     async onShowUser(user_id) {
         try {
           const response = await axios(axiosHelper.getUserDetail(user_id));
@@ -145,8 +141,6 @@ class InitSearch extends Component {
         this.onShowUser(user_id);
         this.setState({modalState: true});
     }
-
-    // follow user
     async onFollowUser(only_following_user_id) {
         try {
           const response = await axios(axiosHelper.postFollowUserConfig(only_following_user_id));
@@ -160,18 +154,14 @@ class InitSearch extends Component {
         event.preventDefault();
         this.onFollowUser(only_following_user_id);
     }
-
     onCloseClick() {
         this.setState({specific_user_data: []});
         this.setState({error_message: []});
         this.setState({modalState: false});
-
     }
-
     handleChange(e) {
         this.setState({[e.target.name] : e.target.value });
     }
-
     componentDidMount() {
         this.onGetMutuallyUser();
         this.onGetFollowingUser();
@@ -250,8 +240,6 @@ class InitSearch extends Component {
                             Search
                         </button>
                     </div>
-
-
                     <div className="p-search__list">
                         <div className="user-list">
                             {this.state.users.map((user) =>

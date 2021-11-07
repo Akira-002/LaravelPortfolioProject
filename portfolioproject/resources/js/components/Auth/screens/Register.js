@@ -1,11 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import ErrorsAlert from '../../helpers/ErrorsAlert';
 
-//material-ui objects
-// import TextField from '@material-ui/core/TextField';
-// import Button from '@material-ui/core/Button';
-
-
 class RegisterPage extends Component {
   constructor(props){
     super(props);
@@ -16,8 +11,6 @@ class RegisterPage extends Component {
       password_confirmation: '',
       errors: [],
     }
-
-    //binding to preserve the context of this
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.reachTheDashboard = this.reachTheDashboard.bind(this);
@@ -33,18 +26,15 @@ class RegisterPage extends Component {
   }
 
   manageRegistrationErrors(errors) {
-    //display errors to the user
     this.setState({ errors });
   }
 
   onSubmit(e) {
     e.preventDefault();
-    //register(success, fail)
     this.props.onRegister(this.state, this.reachTheDashboard, this.manageRegistrationErrors);
   }
 
   render() {
-    //HANDLE INPUT ERRORS
     const {errors} = this.state;
     let userFeedback;
     if (errors.length !== 0) {
