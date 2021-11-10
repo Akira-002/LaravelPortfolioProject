@@ -5,11 +5,11 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import * as axiosHelper from '../helpers/axiosHelper';
 
 // Auth/screens
-import Navbar from './screens/Navbar';
-import HomePage from './screens/HomePage';
-import LoginPage from './screens/Login';
-import RegisterPage from './screens/Register';
-import DashboardPage from './screens/Dashboard';
+import Navbar from '../screens/Navbar';
+import HomePage from '../screens/HomePage';
+import LoginPage from '../screens/LogIn';
+import RegisterPage from '../screens/Register';
+import DashboardPage from '../screens/Dashboard';
 import ErrorsAlert from '../helpers/ErrorsAlert';
 import InitSearch from '../Search/InitSearch';
 
