@@ -76,4 +76,18 @@ class UserController extends Controller
         return response()->json($sendmessage, 201);
     }
 
+    public function editProfileName(Request $request) {
+        $auth_id = Auth::id();
+        $user = User::find($auth_id);
+        if($user->name == $request->input('new_name')) {
+            return response()->json(['message' => 'What do you want????'], 404);
+        } else {
+            $user->name = $request->input('new_name');
+            $user->save();
+            return response()->json($user, 201);
+            // return $user->fill($request->input('new_name'))->save();
+        }
+        return response()->json(['message' => 'What??? Why!!!!!'], 404);
+    }
+
 }

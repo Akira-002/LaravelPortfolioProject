@@ -31,6 +31,7 @@ class Navbar extends Component {
         <Fragment>
           <NavLink className="nav-item nav-link" to="/dashboard">Dashboard</NavLink>
           <NavLink className="nav-item nav-link" to="/search">SearchUser</NavLink>
+          <NavLink className="nav-item nav-link" to="/profile">Profile</NavLink>
           <button className="ml-5 btn btn-danger" onClick={this.logoutBtnClicked}>Logout</button>
         </Fragment>
       )

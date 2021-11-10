@@ -197,3 +197,37 @@ export function getMutuallyUserConfig(){
         }
     }
 }
+
+export function getProfile(){
+    const userToken = JSON.parse(localStorage.getItem('userToken'));
+    if(userToken) {
+        return {
+        url: '/api/me',
+        method: 'get',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Authorization' : 'Bearer ' + userToken},
+        responseType: 'json',
+        }
+    }
+}
+
+export function editProfileName(new_name){
+    const userToken = JSON.parse(localStorage.getItem('userToken'));
+    const newNameData = {new_name};
+    const axiosData = Object.keys(newNameData).map((key) =>( encodeURIComponent(key) + '=' + encodeURIComponent(newNameData[key]))).join('&');
+
+    console.log("newNameData", axiosData)
+    const putNameConfig = {
+        url: '/api/editname',
+        method: 'post',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Authorization' : 'Bearer ' + userToken,
+        },
+        data: axiosData,
+        responseType: 'json',
+    }
+    return putNameConfig;
+}
+

@@ -15,30 +15,32 @@ Route::middleware('json.response')->group(function () {
 
 // private routes
 Route::middleware(['auth:api','json.response'])->group(function () {
-  //->user - exhibit all user without me
-  Route::get('/index', 'App\Http\Controllers\Api\UserController@index');
-  Route::post('/index', 'App\Http\Controllers\Api\UserController@index');
-  //->user - exhibit me
-  Route::get('/me', 'App\Http\Controllers\Api\UserController@showindex');
-  //->user - exhibit target
-  Route::post('/detail', 'App\Http\Controllers\Api\UserController@showuser');
-  //->user - exhibit all send message
-  Route::get('/sendmessages', 'App\Http\Controllers\Api\UserController@showSendMessage');
-  //->user - exhibit all received message
-  Route::get('/receivedmessages', 'App\Http\Controllers\Api\UserController@showReceivedMessage');
-  //->user - sentMessage
-  Route::post('/sentmessage', 'App\Http\Controllers\Api\UserController@sentMessage');
+    //->user - exhibit all user without me
+    Route::get('/index', 'App\Http\Controllers\Api\UserController@index');
+    Route::post('/index', 'App\Http\Controllers\Api\UserController@index');
+    //->user - exhibit me
+    Route::get('/me', 'App\Http\Controllers\Api\UserController@showindex');
+    //->user - edit name
+    Route::post('/editname', 'App\Http\Controllers\Api\UserController@editProfileName');
+    //->user - exhibit target
+    Route::post('/detail', 'App\Http\Controllers\Api\UserController@showuser');
+    //->user - exhibit all send message
+    Route::get('/sendmessages', 'App\Http\Controllers\Api\UserController@showSendMessage');
+    //->user - exhibit all received message
+    Route::get('/receivedmessages', 'App\Http\Controllers\Api\UserController@showReceivedMessage');
+    //->user - sentMessage
+    Route::post('/sentmessage', 'App\Http\Controllers\Api\UserController@sentMessage');
 
-  //->followrelation - exhibit all mutually follow user
-  Route::get('/mutuallyfollow', 'App\Http\Controllers\Api\FollowRelationController@showFollow');
-  //->followrelation - exhibit followed user
-  Route::get('/followeduser', 'App\Http\Controllers\Api\FollowRelationController@showFollowedUser');
-  //->followrelation - exhibit followinguser user
-  Route::get('/followinguser', 'App\Http\Controllers\Api\FollowRelationController@showFollowingUser');
-  //->followrelation - followingUser
-  Route::post('/followinguser', 'App\Http\Controllers\Api\FollowRelationController@followingUser');
-  //->logout - GET
-  Route::get('/logout', 'App\Http\Controllers\Api\AuthController@logout');
+    //->followrelation - exhibit all mutually follow user
+    Route::get('/mutuallyfollow', 'App\Http\Controllers\Api\FollowRelationController@showFollow');
+    //->followrelation - exhibit followed user
+    Route::get('/followeduser', 'App\Http\Controllers\Api\FollowRelationController@showFollowedUser');
+    //->followrelation - exhibit followinguser user
+    Route::get('/followinguser', 'App\Http\Controllers\Api\FollowRelationController@showFollowingUser');
+    //->followrelation - followingUser
+    Route::post('/followinguser', 'App\Http\Controllers\Api\FollowRelationController@followingUser');
+    //->logout - GET
+    Route::get('/logout', 'App\Http\Controllers\Api\AuthController@logout');
 });
 
 

@@ -8,6 +8,7 @@ import * as axiosHelper from '../helpers/axiosHelper';
 import Navbar from '../screens/Navbar';
 import HomePage from '../screens/HomePage';
 import LoginPage from '../screens/LogIn';
+import ProfilePage from '../screens/ProfilePage';
 import RegisterPage from '../screens/Register';
 import DashboardPage from '../screens/Dashboard';
 import ErrorsAlert from '../helpers/ErrorsAlert';
@@ -83,6 +84,7 @@ export default class AuthApp extends Component {
                     <Route exact path="/register" render={(props) => (<RegisterPage onRegister={this.registrationSubmit} {...props}/>)} />
                     <Route exact path="/dashboard" render={() => (<DashboardPage />)} />
                     <Route exact path="/search" render={() => (<InitSearch/>)} />
+                    <Route exact path="/profile" render={() => (<ProfilePage/>)} />
                     <Route render={() => <p>not found.</p>} />
                 </Switch>
             </Router>

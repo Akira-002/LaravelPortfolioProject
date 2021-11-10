@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import Message from '../Message/Message';
 
-const DashboardPage = (props) => {
+const DashboardPage = () => {
   return(
     <Fragment>
-        <Message {...props}/>
+        <Message/>
     </Fragment>
   )
 }
