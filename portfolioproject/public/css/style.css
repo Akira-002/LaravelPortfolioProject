@@ -13054,9 +13054,6 @@ input::-webkit-input-placeholder {
 }
 
 .p-message__text__attention {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
   margin-top: 12px;
   text-align: center;
   color: #2264a1;
@@ -13064,7 +13061,7 @@ input::-webkit-input-placeholder {
 
 .p-message__text__modal {
   margin-top: 48px;
-  margin-left: -120px;
+  text-align: center;
   color: #2264a1;
 }
 

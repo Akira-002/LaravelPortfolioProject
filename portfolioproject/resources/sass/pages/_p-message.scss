@@ -8,7 +8,6 @@
     }
     &__text {
         margin-top: 48px;
-        // margin-left: 120px;
         height: 188px;
         display: block;
         margin-left: auto;
@@ -32,16 +31,13 @@
             }
         }
         &__attention {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
             margin-top: 12px;
             text-align: center;
             color: $COLOR_SECONDARY;
         }
         &__modal {
             margin-top: 48px;
-            margin-left: -120px;
+            text-align: center;
             color: $COLOR_SECONDARY;
             &__btn { margin-top: 20px;}
         }
