@@ -44,10 +44,10 @@ class Message extends Component {
     async receivedMessageExhibit(){
         try {
             const { data } = await axios(axiosHelper.getReceivedMessagesConfig());
-            this.setState((state) => {
-                state.received_messages = data;
-            }, () => {});
-            console.log('received_messages', this.state.received_messages)
+            // this.setState((state) => {
+            //     state.received_messages = data;
+            // }, () => {});
+            this.setState({received_messages: data});
         } catch(error) {
             console.log(error.response.data);
         }
@@ -56,20 +56,23 @@ class Message extends Component {
     async sendMessageExhibit(){
         try {
             const { data } = await axios(axiosHelper.getSendMessagesConfig());
-            this.setState((state) => {
-                state.send_messages = data;
-            }, () => {});
-            console.log('send_messages', this.state.send_messages)
+            // this.setState((state) => {
+            //     state.send_messages = data;
+            // }, () => {});
+            this.setState({send_messages: data});
         } catch(error) {
             console.log(error.response.data);
         }
     }
 
     async sentMessageClicked(receiver_id, description){
+        if(description == "") {
+            return null;
+        }
         try {
-            console.log("sentMessageClicked", receiver_id, description);
+            // console.log("sentMessageClicked", receiver_id, description);
             const { data } = await axios(axiosHelper.postSentMessagesConfig(receiver_id, description));
-            console.log('sentMessage response.data ', data);
+            // console.log('sentMessage response.data ', data);
         } catch(error){
             console.log(error.response.data);
         }
@@ -101,6 +104,10 @@ class Message extends Component {
         if(this.state.blankDescriptionAlart == true) {
             return this.setState({ blankDescriptionAlart: false });
         }
+        if(this.state.description == "") {
+            this.setState({ blankDescriptionAlart: true, modalState: false });
+        }
+
     }
 
     onSentMessageClick(e){
@@ -109,9 +116,15 @@ class Message extends Component {
         e.preventDefault();
         this.sentMessageClicked(receiver_id, description);
         this.setState({ selectedUserId:"", description:"", modalState:false });
+        this.sendMessageExhibit();
     }
 
     componentDidMount() {
+        this.onGetMutuallyUser();
+        this.receivedMessageExhibit();
+        this.sendMessageExhibit();
+    }
+    componentDidUpdate() {
         this.onGetMutuallyUser();
         this.receivedMessageExhibit();
         this.sendMessageExhibit();
@@ -163,12 +176,14 @@ class Message extends Component {
                             <div>
                                 <div className="p-message__text__modal">
                                     <div>{this.state.description}</div>
-                                    <button
-                                        className="btn btn-secondary p-message__text__modal__btn"
-                                        onClick={this.onSentMessageClick}
-                                    >
-                                        Submit
-                                    </button>
+                                    {this.state.description !== "" &&
+                                        <button
+                                            className="btn btn-secondary p-message__text__modal__btn"
+                                            onClick={this.onSentMessageClick}
+                                        >
+                                            Submit
+                                        </button>
+                                    }
                                 </div>
                             </div>
                         }
