@@ -17,15 +17,15 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            margin-top: -16px;
+            margin-top: -36px;
             margin-left: -40px;
             &__field {
-            margin-top: 16px!important;
+            margin-top: 36px!important;
             margin-left: 40px!important;
-            width: 400px;
+            width: 360px;
             }
             &__btn {
-                margin-top: 16px;
+                margin-top: 36px;
                 margin-left: 40px;
                 height: 40px;
             }
@@ -43,6 +43,7 @@
         }
     }
     &__container {
+        margin-top: 100px;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
@@ -54,7 +55,7 @@
         width: 400px;
         white-space: normal;
         &__title {
-            margin-top: 20px;
+            margin-top: 28px;
             margin-left: 40px;
             text-align: center;
             font-weight: $FONT_WEIGHT_BOLD;

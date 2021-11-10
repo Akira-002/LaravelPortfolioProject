@@ -13037,18 +13037,18 @@ input::-webkit-input-placeholder {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: -16px;
+  margin-top: -36px;
   margin-left: -40px;
 }
 
 .p-message__text__block__field {
-  margin-top: 16px !important;
+  margin-top: 36px !important;
   margin-left: 40px !important;
-  width: 400px;
+  width: 360px;
 }
 
 .p-message__text__block__btn {
-  margin-top: 16px;
+  margin-top: 36px;
   margin-left: 40px;
   height: 40px;
 }
@@ -13070,6 +13070,7 @@ input::-webkit-input-placeholder {
 }
 
 .p-message__container {
+  margin-top: 100px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -13084,7 +13085,7 @@ input::-webkit-input-placeholder {
 }
 
 .p-message__list__title {
-  margin-top: 20px;
+  margin-top: 28px;
   margin-left: 40px;
   text-align: center;
   font-weight: 700;
