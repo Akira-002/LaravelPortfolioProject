@@ -217,7 +217,6 @@ export function editProfileName(new_name){
     const newNameData = {new_name};
     const axiosData = Object.keys(newNameData).map((key) =>( encodeURIComponent(key) + '=' + encodeURIComponent(newNameData[key]))).join('&');
 
-    console.log("newNameData", axiosData)
     const putNameConfig = {
         url: '/api/editname',
         method: 'post',
@@ -231,3 +230,20 @@ export function editProfileName(new_name){
     return putNameConfig;
 }
 
+export function editProfileEmail(new_email){
+    const userToken = JSON.parse(localStorage.getItem('userToken'));
+    const newNameData = {new_email};
+    const axiosData = Object.keys(newNameData).map((key) =>( encodeURIComponent(key) + '=' + encodeURIComponent(newNameData[key]))).join('&');
+
+    const putNameConfig = {
+        url: '/api/editemail',
+        method: 'post',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Authorization' : 'Bearer ' + userToken,
+        },
+        data: axiosData,
+        responseType: 'json',
+    }
+    return putNameConfig;
+}

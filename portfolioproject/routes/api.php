@@ -22,6 +22,8 @@ Route::middleware(['auth:api','json.response'])->group(function () {
     Route::get('/me', 'App\Http\Controllers\Api\UserController@showindex');
     //->user - edit name
     Route::post('/editname', 'App\Http\Controllers\Api\UserController@editProfileName');
+    //->user - edit email
+    Route::post('/editemail', 'App\Http\Controllers\Api\UserController@editProfileEmail');
     //->user - exhibit target
     Route::post('/detail', 'App\Http\Controllers\Api\UserController@showuser');
     //->user - exhibit all send message

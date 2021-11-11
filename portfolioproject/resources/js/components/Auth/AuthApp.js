@@ -8,11 +8,11 @@ import * as axiosHelper from '../helpers/axiosHelper';
 import Navbar from '../screens/Navbar';
 import HomePage from '../screens/HomePage';
 import LoginPage from '../screens/LogIn';
-import ProfilePage from '../screens/ProfilePage';
 import RegisterPage from '../screens/Register';
 import DashboardPage from '../screens/Dashboard';
 import ErrorsAlert from '../helpers/ErrorsAlert';
 import InitSearch from '../Search/InitSearch';
+import ProfilePage from '../Profile/ProfilePage';
 
 
 export default class AuthApp extends Component {

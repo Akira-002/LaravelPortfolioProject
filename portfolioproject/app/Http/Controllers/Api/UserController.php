@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Message;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -77,6 +78,14 @@ class UserController extends Controller
     }
 
     public function editProfileName(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'new_name' => 'required|string|max:255'
+        ]);
+        if ($validator->fails())
+        {
+            return response(['errors' => $validator->errors()->all()], 422);
+        }
+
         $auth_id = Auth::id();
         $user = User::find($auth_id);
         if($user->name == $request->input('new_name')) {
@@ -85,9 +94,31 @@ class UserController extends Controller
             $user->name = $request->input('new_name');
             $user->save();
             return response()->json($user, 201);
-            // return $user->fill($request->input('new_name'))->save();
         }
         return response()->json(['message' => 'What??? Why!!!!!'], 404);
     }
 
+    public function editProfileEmail(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'new_email' => 'required|string|email|max:255|unique:users'
+        ]);
+        if ($validator->fails()) {
+            return response(['errors' => $validator->errors()->all()], 422);
+        }
+
+        $auth_id = Auth::id();
+        $user = User::find($auth_id);
+        $user_check = User::where('email', $request->input('new_email'))->first();
+        if($user_check) {
+            return response()->json(['message' => "Already exist."], 404);
+        }
+         if($user->email == $request->input('new_email')) {
+            return response()->json(['message' => 'What do you want????'], 404);
+        } else {
+            $user->email = $request->input('new_email');
+            $user->save();
+            return response()->json($user, 201);
+        }
+        return response()->json(['message' => 'What??? Why!!!!!'], 404);
+    }
 }
