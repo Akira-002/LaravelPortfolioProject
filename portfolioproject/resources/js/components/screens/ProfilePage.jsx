@@ -8,12 +8,14 @@ export default class ProfilePage extends Component {
         this.state = {
             currentUserProfile: {},
             newName: "",
+            newEmail: "",
             editState: false,
             blankNewNameAlart: false,
-            rewriedName: false
+            rewriedName: false,
+            rewriedEmail: false
         }
         this.showProfileClicked = this.showProfileClicked.bind(this);
-        this.handleChangeNewName = this.handleChangeNewName.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.editProfileSubmit = this.editProfileSubmit.bind(this);
         this.newNameSubmited = this.newNameSubmited.bind(this);
     }
@@ -36,9 +38,11 @@ export default class ProfilePage extends Component {
         }
     }
 
-    handleChangeNewName(e) {
+    handleChange(e) {
+    // handleChangeNewName(e) {
         e.preventDefault();
-        this.setState({ newName: e.target.value })
+        // this.setState({ newName: e.target.value })
+        this.setState({ [e.target.name]: e.target.value });
     }
 
     editProfileSubmit(e) {
@@ -80,14 +84,17 @@ export default class ProfilePage extends Component {
                             className="p-message__text__block__field"
                             label="New Name"
                             value={this.state.newName || ""}
-                            onChange={this.handleChangeNewName}
+                            onChange={this.handleChange}
+                            name="newName"
                         />
-                        <button
-                            className="btn c-icon__btn p-message__text__modal__btn"
-                            onClick={this.editProfileSubmit}
-                        >
-                            Submit
-                        </button>
+                        {this.state.newName !== "" &&
+                            <button
+                                className="btn c-icon__btn p-message__text__modal__btn"
+                                onClick={this.editProfileSubmit}
+                            >
+                                Submit
+                            </button>
+                        }
                     </Fragment>
                 }
                 {this.state.rewriedName == true &&
