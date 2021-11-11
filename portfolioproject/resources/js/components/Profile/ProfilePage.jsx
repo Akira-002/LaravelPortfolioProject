@@ -14,7 +14,7 @@ export default class ProfilePage extends Component {
             editEmailState: false,
             blankAlart: false,
             rewrited: false,
-            rewriedEmail: false
+            rewriedEmail: false,
         }
         this.showProfileClicked = this.showProfileClicked.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -28,7 +28,7 @@ export default class ProfilePage extends Component {
             const { data } = await axios(axiosHelper.getProfile());
             this.setState({ currentUserProfile: data });
         } catch(error) {
-            errorCallback( error && error.response.data || {error: "Unprocessable entity"});
+            this.setState({ errors: [error.response.data.message]});
         }
     }
 
